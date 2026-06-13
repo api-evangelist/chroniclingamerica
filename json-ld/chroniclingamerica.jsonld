@@ -1,0 +1,130 @@
+{
+  "@context": {
+    "@vocab": "https://schema.org/",
+    "lccn": "https://id.loc.gov/vocabulary/identifiers/lccn",
+    "ca": "https://chroniclingamerica.loc.gov/about/api/#",
+    "ndnp": "https://www.loc.gov/ndnp/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "foaf": "http://xmlns.com/foaf/0.1/"
+  },
+  "@type": "WebAPI",
+  "@id": "https://chroniclingamerica.loc.gov",
+  "name": "Chronicling America API",
+  "description": "Library of Congress API providing free public access to a searchable database of historic American newspaper pages from 1770 to 1963. Covers over 20 million digitized newspaper pages from hundreds of US newspapers contributed by institutions in the National Digital Newspaper Program (NDNP).",
+  "url": "https://chroniclingamerica.loc.gov",
+  "documentation": "https://chroniclingamerica.loc.gov/about/api/",
+  "provider": {
+    "@type": "Organization",
+    "name": "Library of Congress",
+    "url": "https://www.loc.gov",
+    "sameAs": [
+      "https://github.com/LibraryOfCongress",
+      "https://twitter.com/librarycongress",
+      "https://www.linkedin.com/company/library-of-congress"
+    ]
+  },
+  "license": "https://www.loc.gov/legal/",
+  "termsOfService": "https://www.loc.gov/legal/",
+  "privacyPolicy": "https://www.loc.gov/legal/privacy-policy/",
+  "isPartOf": {
+    "@type": "CreativeWork",
+    "name": "National Digital Newspaper Program",
+    "url": "https://www.loc.gov/ndnp/"
+  },
+  "potentialAction": [
+    {
+      "@type": "SearchAction",
+      "name": "Search Newspaper Pages",
+      "description": "Full-text search across 20+ million historic newspaper pages",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "https://chroniclingamerica.loc.gov/search/pages/results/?andtext={search_term}&format=json",
+        "httpMethod": "GET",
+        "encodingType": "application/json"
+      },
+      "query-input": "required name=search_term"
+    },
+    {
+      "@type": "SearchAction",
+      "name": "Search Newspaper Titles",
+      "description": "Search bibliographic metadata for newspaper titles",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "https://chroniclingamerica.loc.gov/search/titles/results/?terms={search_term}&format=json",
+        "httpMethod": "GET",
+        "encodingType": "application/json"
+      },
+      "query-input": "required name=search_term"
+    }
+  ],
+  "availableChannel": [
+    {
+      "@type": "ServiceChannel",
+      "name": "JSON API",
+      "serviceUrl": "https://chroniclingamerica.loc.gov",
+      "serviceType": "REST API"
+    },
+    {
+      "@type": "ServiceChannel",
+      "name": "Atom Feed",
+      "serviceUrl": "https://chroniclingamerica.loc.gov",
+      "serviceType": "Atom Feed"
+    }
+  ],
+  "about": [
+    {
+      "@type": "Thing",
+      "name": "Newspapers",
+      "description": "Historic American newspaper pages"
+    },
+    {
+      "@type": "Thing",
+      "name": "Cultural Heritage",
+      "description": "Digitized cultural heritage materials"
+    },
+    {
+      "@type": "Thing",
+      "name": "American History",
+      "description": "Historical records from 1770 to 1963"
+    },
+    {
+      "@type": "Thing",
+      "name": "OCR Text",
+      "description": "Optical Character Recognition text from digitized pages"
+    }
+  ],
+  "temporalCoverage": "1770/1963",
+  "spatialCoverage": {
+    "@type": "Place",
+    "name": "United States of America"
+  },
+  "inLanguage": [
+    "en",
+    "es",
+    "fr",
+    "de",
+    "it",
+    "pt",
+    "cs",
+    "pl",
+    "hu",
+    "da",
+    "no",
+    "sv",
+    "fi"
+  ],
+  "keywords": [
+    "newspapers",
+    "historical",
+    "archives",
+    "Library of Congress",
+    "government",
+    "digitized",
+    "OCR",
+    "search",
+    "cultural heritage",
+    "LCCN",
+    "NDNP",
+    "IIIF"
+  ]
+}

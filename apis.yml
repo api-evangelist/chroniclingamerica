@@ -42,6 +42,8 @@ apis:
     properties:
       - type: Documentation
         url: https://chroniclingamerica.loc.gov/about/api/
+      - type: OpenAPI
+        url: https://raw.githubusercontent.com/api-evangelist/chroniclingamerica/refs/heads/main/openapi/chroniclingamerica-openapi.yml
       - type: TermsOfService
         url: https://www.loc.gov/legal/
       - type: PrivacyPolicy
@@ -68,6 +70,8 @@ apis:
     properties:
       - type: Documentation
         url: https://chroniclingamerica.loc.gov/about/api/
+      - type: OpenAPI
+        url: https://raw.githubusercontent.com/api-evangelist/chroniclingamerica/refs/heads/main/openapi/chroniclingamerica-openapi.yml
       - type: TermsOfService
         url: https://www.loc.gov/legal/
     contact:
@@ -94,6 +98,8 @@ apis:
     properties:
       - type: Documentation
         url: https://chroniclingamerica.loc.gov/about/api/
+      - type: OpenAPI
+        url: https://raw.githubusercontent.com/api-evangelist/chroniclingamerica/refs/heads/main/openapi/chroniclingamerica-openapi.yml
       - type: TermsOfService
         url: https://www.loc.gov/legal/
     contact:
@@ -122,6 +128,8 @@ common:
     url: rate-limits/chroniclingamerica-rate-limits.yml
   - type: FinOps
     url: finops/chroniclingamerica-finops.yml
+  - type: JSONLd
+    url: https://raw.githubusercontent.com/api-evangelist/chroniclingamerica/refs/heads/main/json-ld/chroniclingamerica.jsonld
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
