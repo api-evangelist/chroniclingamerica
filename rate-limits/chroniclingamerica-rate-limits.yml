@@ -1,0 +1,79 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: Chronicling America
+providerId: chroniclingamerica
+created: '2026-06-13'
+modified: '2026-06-13'
+tags:
+  - Newspapers
+  - Historical
+  - Archives
+  - Library of Congress
+  - Government
+  - Rate Limiting
+  - Throttling
+description: >-
+  Rate limit profile for the Chronicling America API. The Library of Congress enforces rate limits
+  across all chroniclingamerica.loc.gov endpoints to ensure equitable public access. No authentication
+  or API key is required, so limits are applied per IP address. Exceeding limits typically results in
+  a temporary block or HTTP 429 response. Implementers should apply exponential backoff and respect
+  Retry-After headers.
+headers:
+  retryAfter: Retry-After
+responseCodes:
+  throttled: 429
+  serviceUnavailable: 503
+limits:
+  - tier: free
+    name: Search and Metadata Endpoints
+    scope: ip
+    metric: requests_per_minute
+    limit: 150
+    burst: 200
+    timeFrame: minute
+    applies:
+      - Chronicling America Search API
+      - Chronicling America Titles API
+    notes: >-
+      Applies to /search/pages/results/, /newspapers.json, /lccn/{lccn}.json,
+      /lccn/{lccn}/issues.json, /batches.json, and /batches/{batch_name}.json endpoints.
+      Sustained crawling above this rate may trigger a 1-hour IP block.
+  - tier: free
+    name: Page and OCR Text Endpoints
+    scope: ip
+    metric: requests_per_minute
+    limit: 150
+    burst: 200
+    timeFrame: minute
+    applies:
+      - Chronicling America Pages API
+    notes: >-
+      Applies to /lccn/{lccn}/{date}/ed-{edition}/seq-{sequence}/ page endpoints and .txt OCR
+      text files. The same 150 req/min guideline applies. For bulk OCR harvest, LOC Labs
+      provides pre-built bulk OCR data downloads that avoid API rate limits entirely.
+  - tier: free
+    name: Image and Binary File Downloads
+    scope: ip
+    metric: requests_per_minute
+    limit: 60
+    burst: 100
+    timeFrame: minute
+    applies:
+      - Chronicling America Pages API
+    notes: >-
+      Applies to JP2, PDF, and TIFF image file downloads from storage.
+      Large image files (JP2/TIFF can be 5–30 MB per page) place significant load on
+      storage services; a lower rate is recommended. Download only the format needed;
+      JP2 is suitable for most digital-humanities use cases.
+bestPractices:
+  - Implement exponential backoff with jitter when a 429 or non-JSON response is received
+  - For bulk text harvest, use pre-built OCR bulk data packages from LOC Labs (https://labs.loc.gov/work/experiments/bulk-data/) rather than looping the page text API
+  - Use the /batches.json and /batches/{batch_name}.json endpoints to enumerate pages systematically rather than full-text search pagination for comprehensive crawls
+  - Cache title and batch metadata locally; this data changes only when new batches are ingested
+  - Prefer JSON over Atom format for machine consumption to reduce payload size
+  - Add a User-Agent header identifying your application to facilitate communication if you are blocked
+  - Schedule high-volume jobs during off-peak hours (nights/weekends Eastern US time)
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

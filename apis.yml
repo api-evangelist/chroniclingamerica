@@ -1,0 +1,127 @@
+aid: chroniclingamerica
+name: Chronicling America
+description: >-
+  Chronicling America is a Library of Congress initiative providing free public access to a searchable
+  database of historic American newspaper pages from 1770 to 1963. The platform hosts over 20 million
+  digitized newspaper pages from hundreds of US newspapers contributed by institutions in the National
+  Digital Newspaper Program (NDNP). The API exposes search, title, issue, batch, and OCR text endpoints
+  with no authentication required, returning responses in JSON and Atom feed formats.
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+url: https://raw.githubusercontent.com/api-evangelist/chroniclingamerica/refs/heads/main/apis.yml
+created: '2026-06-13'
+modified: '2026-06-13'
+specificationVersion: '0.19'
+type: Index
+tags:
+  - Newspapers
+  - Historical
+  - Archives
+  - Library of Congress
+  - Government
+  - Digitized
+  - OCR
+  - Search
+  - Cultural Heritage
+apis:
+  - aid: chroniclingamerica:chronicling-america-search-api
+    name: Chronicling America Search API
+    description: >-
+      The Chronicling America Search API provides full-text search across over 20 million historic
+      American newspaper pages digitized under the National Digital Newspaper Program. Callers can
+      search by keyword, date range, state, newspaper title (LCCN), and page-level fields. Responses
+      are available in JSON or Atom format. No authentication or API key is required.
+    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    humanURL: https://chroniclingamerica.loc.gov/about/api/
+    baseURL: https://chroniclingamerica.loc.gov
+    tags:
+      - Newspapers
+      - Search
+      - Historical
+      - OCR
+      - Full-Text
+    properties:
+      - type: Documentation
+        url: https://chroniclingamerica.loc.gov/about/api/
+      - type: TermsOfService
+        url: https://www.loc.gov/legal/
+      - type: PrivacyPolicy
+        url: https://www.loc.gov/legal/privacy-policy/
+    contact:
+      - FN: Library of Congress
+        url: https://www.loc.gov/about/contact-us/
+  - aid: chroniclingamerica:chronicling-america-titles-api
+    name: Chronicling America Titles API
+    description: >-
+      The Titles API exposes bibliographic metadata for every newspaper title in the Chronicling
+      America collection. Callers can retrieve the full title list, look up a specific title by LCCN
+      (Library of Congress Control Number), list all digitized issues for a title, and retrieve
+      individual batch records. Responses are available in JSON and Atom formats.
+    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    humanURL: https://chroniclingamerica.loc.gov/about/api/
+    baseURL: https://chroniclingamerica.loc.gov
+    tags:
+      - Newspapers
+      - Titles
+      - LCCN
+      - Bibliographic
+      - Metadata
+    properties:
+      - type: Documentation
+        url: https://chroniclingamerica.loc.gov/about/api/
+      - type: TermsOfService
+        url: https://www.loc.gov/legal/
+    contact:
+      - FN: Library of Congress
+        url: https://www.loc.gov/about/contact-us/
+  - aid: chroniclingamerica:chronicling-america-pages-api
+    name: Chronicling America Pages API
+    description: >-
+      The Pages API provides access to individual newspaper page records including OCR text, IIIF image
+      service URLs, PDF downloads, and JP2 image files. Pages are addressed by LCCN, date, edition,
+      and sequence number. OCR text can be retrieved as plain text or coordinates. The underlying image
+      files are available in JP2, PDF, and TIFF formats hosted on LOC storage services.
+    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    humanURL: https://chroniclingamerica.loc.gov/about/api/
+    baseURL: https://chroniclingamerica.loc.gov
+    tags:
+      - Newspapers
+      - Pages
+      - OCR
+      - Images
+      - PDF
+      - JP2
+      - IIIF
+    properties:
+      - type: Documentation
+        url: https://chroniclingamerica.loc.gov/about/api/
+      - type: TermsOfService
+        url: https://www.loc.gov/legal/
+    contact:
+      - FN: Library of Congress
+        url: https://www.loc.gov/about/contact-us/
+common:
+  - type: Website
+    url: https://chroniclingamerica.loc.gov
+  - type: Documentation
+    url: https://chroniclingamerica.loc.gov/about/api/
+  - type: About
+    url: https://chroniclingamerica.loc.gov/about/
+  - type: GithubOrg
+    url: https://github.com/LibraryOfCongress
+  - type: X
+    url: https://twitter.com/librarycongress
+  - type: LinkedIn
+    url: https://www.linkedin.com/company/library-of-congress
+  - type: TermsOfService
+    url: https://www.loc.gov/legal/
+  - type: PrivacyPolicy
+    url: https://www.loc.gov/legal/privacy-policy/
+  - type: Plans
+    url: plans/chroniclingamerica-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/chroniclingamerica-rate-limits.yml
+  - type: FinOps
+    url: finops/chroniclingamerica-finops.yml
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
