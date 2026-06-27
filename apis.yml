@@ -112,7 +112,7 @@ common:
     url: https://chroniclingamerica.loc.gov/about/api/
   - type: About
     url: https://chroniclingamerica.loc.gov/about/
-  - type: GithubOrg
+  - type: GitHubOrg
     url: https://github.com/LibraryOfCongress
   - type: X
     url: https://twitter.com/librarycongress
@@ -128,7 +128,7 @@ common:
     url: rate-limits/chroniclingamerica-rate-limits.yml
   - type: FinOps
     url: finops/chroniclingamerica-finops.yml
-  - type: JSONLd
+  - type: JSONLD
     url: https://raw.githubusercontent.com/api-evangelist/chroniclingamerica/refs/heads/main/json-ld/chroniclingamerica.jsonld
 maintainers:
   - FN: Kin Lane
