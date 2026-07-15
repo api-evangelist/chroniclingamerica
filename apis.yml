@@ -106,6 +106,8 @@ apis:
       - FN: Library of Congress
         url: https://www.loc.gov/about/contact-us/
 common:
+  - type: AgenticAccess
+    url: agentic-access/chroniclingamerica-agentic-access.yml
   - type: VulnerabilityDisclosure
     url: security/chroniclingamerica-vulnerability-disclosure.yml
   - type: DomainSecurity
