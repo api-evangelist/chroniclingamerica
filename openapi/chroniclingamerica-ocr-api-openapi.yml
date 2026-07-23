@@ -1,0 +1,68 @@
+openapi: 3.0.3
+info:
+  title: Chronicling America Batches OCR API
+  description: Chronicling America is a Library of Congress initiative providing free public access to a searchable database of historic American newspaper pages from 1770 to 1963. The platform hosts over 20 million digitized newspaper pages from hundreds of US newspapers contributed by institutions in the National Digital Newspaper Program (NDNP). The API exposes search, title, issue, batch, and OCR text endpoints with no authentication required, returning responses in JSON and Atom feed formats.
+  version: 1.0.0
+  contact:
+    name: Library of Congress
+    url: https://www.loc.gov/about/contact-us/
+  termsOfService: https://www.loc.gov/legal/
+  license:
+    name: Public Domain
+    url: https://www.loc.gov/legal/
+servers:
+- url: https://chroniclingamerica.loc.gov
+  description: Chronicling America production server
+tags:
+- name: OCR
+  description: Endpoints for retrieving OCR text from digitized newspaper pages.
+paths:
+  /titles/{lccn}/issues/{date}/ed-{edition}/seq-{sequence}/ocr.txt:
+    get:
+      operationId: getPageOcrText
+      summary: Get OCR text for a newspaper page
+      description: Retrieve the full plain-text OCR (Optical Character Recognition) content for a specific newspaper page. The text is extracted from digitized images and may contain recognition errors.
+      tags:
+      - OCR
+      parameters:
+      - name: lccn
+        in: path
+        required: true
+        description: LCCN for the newspaper title.
+        schema:
+          type: string
+        example: sn84026749
+      - name: date
+        in: path
+        required: true
+        description: Publication date in YYYY-MM-DD format.
+        schema:
+          type: string
+          format: date
+        example: '1900-01-01'
+      - name: edition
+        in: path
+        required: true
+        description: Edition number.
+        schema:
+          type: integer
+        example: 1
+      - name: sequence
+        in: path
+        required: true
+        description: Page sequence number.
+        schema:
+          type: integer
+        example: 1
+      responses:
+        '200':
+          description: Plain text OCR content
+          content:
+            text/plain:
+              schema:
+                type: string
+        '404':
+          description: Page not found
+externalDocs:
+  description: Chronicling America API Documentation
+  url: https://chroniclingamerica.loc.gov/about/api/

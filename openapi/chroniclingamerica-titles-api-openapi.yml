@@ -1,0 +1,367 @@
+openapi: 3.0.3
+info:
+  title: Chronicling America Batches Titles API
+  description: Chronicling America is a Library of Congress initiative providing free public access to a searchable database of historic American newspaper pages from 1770 to 1963. The platform hosts over 20 million digitized newspaper pages from hundreds of US newspapers contributed by institutions in the National Digital Newspaper Program (NDNP). The API exposes search, title, issue, batch, and OCR text endpoints with no authentication required, returning responses in JSON and Atom feed formats.
+  version: 1.0.0
+  contact:
+    name: Library of Congress
+    url: https://www.loc.gov/about/contact-us/
+  termsOfService: https://www.loc.gov/legal/
+  license:
+    name: Public Domain
+    url: https://www.loc.gov/legal/
+servers:
+- url: https://chroniclingamerica.loc.gov
+  description: Chronicling America production server
+tags:
+- name: Titles
+  description: Endpoints for retrieving newspaper title bibliographic metadata.
+paths:
+  /search/titles/results/:
+    get:
+      operationId: searchTitles
+      summary: Search newspaper titles
+      description: Search for newspaper titles in the Chronicling America collection by name, location, LCCN, language, and date range. Returns bibliographic metadata for matching titles.
+      tags:
+      - Titles
+      parameters:
+      - name: terms
+        in: query
+        description: Search terms for the title name.
+        required: false
+        schema:
+          type: string
+        example: New York Tribune
+      - name: format
+        in: query
+        description: Response format.
+        required: false
+        schema:
+          type: string
+          enum:
+          - json
+          - atom
+        example: json
+      - name: state
+        in: query
+        description: State where the newspaper was published.
+        required: false
+        schema:
+          type: string
+        example: New York
+      - name: county
+        in: query
+        description: County where the newspaper was published.
+        required: false
+        schema:
+          type: string
+      - name: city
+        in: query
+        description: City where the newspaper was published.
+        required: false
+        schema:
+          type: string
+      - name: language
+        in: query
+        description: Language of the newspaper.
+        required: false
+        schema:
+          type: string
+      - name: ethnicity
+        in: query
+        description: Ethnicity the newspaper was targeted at.
+        required: false
+        schema:
+          type: string
+      - name: labor
+        in: query
+        description: Labor or union affiliation of the newspaper.
+        required: false
+        schema:
+          type: string
+      - name: material_type
+        in: query
+        description: Type of material (e.g., newspaper).
+        required: false
+        schema:
+          type: string
+      - name: date1
+        in: query
+        description: Start year for publication range.
+        required: false
+        schema:
+          type: integer
+        example: 1900
+      - name: date2
+        in: query
+        description: End year for publication range.
+        required: false
+        schema:
+          type: integer
+        example: 1920
+      - name: rows
+        in: query
+        description: Number of results per page.
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
+          default: 20
+      - name: page
+        in: query
+        description: Page number for paginated results.
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          default: 1
+      responses:
+        '200':
+          description: Successful title search results
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchTitlesResponse'
+  /titles.json:
+    get:
+      operationId: listTitles
+      summary: List all newspaper titles
+      description: Retrieve a list of all newspaper titles in the Chronicling America collection. Returns bibliographic metadata including LCCN, title name, publication place, date range, and subject information.
+      tags:
+      - Titles
+      responses:
+        '200':
+          description: List of all newspaper titles
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TitlesListResponse'
+  /titles/{lccn}.json:
+    get:
+      operationId: getTitle
+      summary: Get a specific newspaper title
+      description: Retrieve detailed bibliographic metadata for a specific newspaper title identified by its Library of Congress Control Number (LCCN). Includes publication information, language, subject headings, and links to digitized issues.
+      tags:
+      - Titles
+      parameters:
+      - name: lccn
+        in: path
+        required: true
+        description: Library of Congress Control Number (LCCN) for the newspaper title.
+        schema:
+          type: string
+        example: sn84026749
+      responses:
+        '200':
+          description: Newspaper title metadata
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TitleDetail'
+        '404':
+          description: Title not found
+  /titles/{lccn}/issues.json:
+    get:
+      operationId: listIssuesByTitle
+      summary: List issues for a newspaper title
+      description: List all digitized issues available for a specific newspaper title identified by its LCCN. Returns date and URL for each issue.
+      tags:
+      - Titles
+      parameters:
+      - name: lccn
+        in: path
+        required: true
+        description: Library of Congress Control Number (LCCN) for the newspaper title.
+        schema:
+          type: string
+        example: sn84026749
+      responses:
+        '200':
+          description: List of issues for the title
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IssuesListResponse'
+        '404':
+          description: Title not found
+  /newspapers.json:
+    get:
+      operationId: listNewspapers
+      summary: List all newspapers (alias for titles)
+      description: An alternative endpoint that lists all newspapers in the Chronicling America collection. Returns the same data as /titles.json but under a different URL path. Useful for discovering available titles.
+      tags:
+      - Titles
+      responses:
+        '200':
+          description: List of all newspapers
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TitlesListResponse'
+components:
+  schemas:
+    SearchTitlesResponse:
+      type: object
+      description: Paginated search results for newspaper titles.
+      properties:
+        totalItems:
+          type: integer
+          description: Total number of matching titles.
+        endIndex:
+          type: integer
+          description: Index of the last result on the current page.
+        startIndex:
+          type: integer
+          description: Index of the first result on the current page.
+        itemsPerPage:
+          type: integer
+          description: Number of results per page.
+        items:
+          type: array
+          description: Array of matching newspaper title records.
+          items:
+            $ref: '#/components/schemas/TitleSummary'
+    IssuesListResponse:
+      type: object
+      description: List of all issues for a newspaper title.
+      properties:
+        issues:
+          type: array
+          description: Array of issue records.
+          items:
+            $ref: '#/components/schemas/IssueSummary'
+    IssueSummary:
+      type: object
+      description: Summary of a single newspaper issue.
+      properties:
+        url:
+          type: string
+          description: URL to the issue JSON record.
+        date_issued:
+          type: string
+          description: Date the issue was published (YYYY-MM-DD).
+          example: '1900-01-01'
+    TitleSummary:
+      type: object
+      description: Summary record for a newspaper title.
+      properties:
+        lccn:
+          type: string
+          description: Library of Congress Control Number.
+          example: sn84026749
+        title:
+          type: string
+          description: Name of the newspaper.
+          example: Chicago Tribune
+        url:
+          type: string
+          description: URL to the full title JSON record.
+          example: https://chroniclingamerica.loc.gov/lccn/sn84026749.json
+        state:
+          type: array
+          items:
+            type: string
+          description: State(s) where the newspaper was published.
+        county:
+          type: array
+          items:
+            type: string
+          description: County or counties of publication.
+        city:
+          type: array
+          items:
+            type: string
+          description: City or cities of publication.
+        start_year:
+          type: string
+          description: First year of publication.
+          example: '1849'
+        end_year:
+          type: string
+          description: Last year of publication (or "present" if ongoing).
+          example: '1920'
+    TitlesListResponse:
+      type: object
+      description: Complete list of newspaper titles in the collection.
+      properties:
+        newspapers:
+          type: array
+          description: Array of newspaper title records.
+          items:
+            $ref: '#/components/schemas/TitleSummary'
+    TitleDetail:
+      type: object
+      description: Detailed bibliographic metadata for a newspaper title.
+      properties:
+        lccn:
+          type: string
+          description: Library of Congress Control Number.
+          example: sn84026749
+        name:
+          type: string
+          description: Title name.
+          example: Chicago Tribune
+        url:
+          type: string
+          description: URL to this title record.
+        start_year:
+          type: string
+          description: First year of publication.
+        end_year:
+          type: string
+          description: Last year of publication.
+        place_of_publication:
+          type: string
+          description: Place of publication.
+        publisher:
+          type: string
+          description: Publisher name.
+        frequency:
+          type: string
+          description: Publication frequency.
+          example: Daily
+        subject:
+          type: array
+          items:
+            type: string
+          description: Subject headings.
+        note:
+          type: array
+          items:
+            type: string
+          description: Bibliographic notes.
+        language:
+          type: array
+          items:
+            type: string
+          description: Language(s) of publication.
+        country:
+          type: string
+          description: Country of publication.
+        county:
+          type: array
+          items:
+            type: string
+          description: County of publication.
+        city:
+          type: array
+          items:
+            type: string
+          description: City of publication.
+        state:
+          type: array
+          items:
+            type: string
+          description: State of publication.
+        issues:
+          type: array
+          description: List of digitized issues.
+          items:
+            $ref: '#/components/schemas/IssueSummary'
+        place_of_issue:
+          type: string
+          description: Place where the newspaper was issued.
+externalDocs:
+  description: Chronicling America API Documentation
+  url: https://chroniclingamerica.loc.gov/about/api/

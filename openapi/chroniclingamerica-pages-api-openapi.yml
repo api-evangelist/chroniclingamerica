@@ -1,0 +1,208 @@
+openapi: 3.0.3
+info:
+  title: Chronicling America Batches Pages API
+  description: Chronicling America is a Library of Congress initiative providing free public access to a searchable database of historic American newspaper pages from 1770 to 1963. The platform hosts over 20 million digitized newspaper pages from hundreds of US newspapers contributed by institutions in the National Digital Newspaper Program (NDNP). The API exposes search, title, issue, batch, and OCR text endpoints with no authentication required, returning responses in JSON and Atom feed formats.
+  version: 1.0.0
+  contact:
+    name: Library of Congress
+    url: https://www.loc.gov/about/contact-us/
+  termsOfService: https://www.loc.gov/legal/
+  license:
+    name: Public Domain
+    url: https://www.loc.gov/legal/
+servers:
+- url: https://chroniclingamerica.loc.gov
+  description: Chronicling America production server
+tags:
+- name: Pages
+  description: Endpoints for retrieving individual newspaper page metadata and content.
+paths:
+  /titles/{lccn}/issues/{date}/ed-{edition}/seq-{sequence}.json:
+    get:
+      operationId: getPage
+      summary: Get a specific newspaper page
+      description: Retrieve metadata for a specific page within a newspaper issue. Returns OCR text URL, image service URLs (IIIF), PDF download URL, JP2 image URL, and TIFF URL. Page sequence numbering starts at 1.
+      tags:
+      - Pages
+      parameters:
+      - name: lccn
+        in: path
+        required: true
+        description: Library of Congress Control Number (LCCN) for the newspaper title.
+        schema:
+          type: string
+        example: sn84026749
+      - name: date
+        in: path
+        required: true
+        description: Publication date in YYYY-MM-DD format.
+        schema:
+          type: string
+          format: date
+        example: '1900-01-01'
+      - name: edition
+        in: path
+        required: true
+        description: Edition number.
+        schema:
+          type: integer
+        example: 1
+      - name: sequence
+        in: path
+        required: true
+        description: Page sequence number within the issue (1-based).
+        schema:
+          type: integer
+        example: 1
+      responses:
+        '200':
+          description: Page metadata including image and OCR URLs
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PageDetail'
+        '404':
+          description: Page not found
+  /titles/{lccn}/issues/{date}/ed-{edition}/seq-{sequence}/ocr.txt:
+    get:
+      operationId: getPageOcrText
+      summary: Get OCR text for a newspaper page
+      description: Retrieve the full plain-text OCR (Optical Character Recognition) content for a specific newspaper page. The text is extracted from digitized images and may contain recognition errors.
+      tags:
+      - Pages
+      parameters:
+      - name: lccn
+        in: path
+        required: true
+        description: LCCN for the newspaper title.
+        schema:
+          type: string
+        example: sn84026749
+      - name: date
+        in: path
+        required: true
+        description: Publication date in YYYY-MM-DD format.
+        schema:
+          type: string
+          format: date
+        example: '1900-01-01'
+      - name: edition
+        in: path
+        required: true
+        description: Edition number.
+        schema:
+          type: integer
+        example: 1
+      - name: sequence
+        in: path
+        required: true
+        description: Page sequence number.
+        schema:
+          type: integer
+        example: 1
+      responses:
+        '200':
+          description: Plain text OCR content
+          content:
+            text/plain:
+              schema:
+                type: string
+        '404':
+          description: Page not found
+components:
+  schemas:
+    IssueSummary:
+      type: object
+      description: Summary of a single newspaper issue.
+      properties:
+        url:
+          type: string
+          description: URL to the issue JSON record.
+        date_issued:
+          type: string
+          description: Date the issue was published (YYYY-MM-DD).
+          example: '1900-01-01'
+    PageDetail:
+      type: object
+      description: Detailed metadata for a single newspaper page.
+      properties:
+        url:
+          type: string
+          description: URL to this page record.
+        sequence:
+          type: integer
+          description: Page sequence number within the issue (1-based).
+          example: 1
+        title:
+          $ref: '#/components/schemas/TitleSummary'
+        issue:
+          $ref: '#/components/schemas/IssueSummary'
+        edition:
+          type: integer
+          description: Edition number.
+        section_label:
+          type: string
+          description: Section label for this page.
+        edition_label:
+          type: string
+          description: Human-readable edition label.
+        pdf:
+          type: string
+          description: URL to the PDF download for this page.
+          example: https://chroniclingamerica.loc.gov/lccn/sn84026749/1900-01-01/ed-1/seq-1.pdf
+        jp2:
+          type: string
+          description: URL to the JPEG 2000 image of this page.
+          example: https://chroniclingamerica.loc.gov/lccn/sn84026749/1900-01-01/ed-1/seq-1.jp2
+        tif:
+          type: string
+          description: URL to the TIFF image of this page.
+        text:
+          type: string
+          description: URL to the plain text OCR for this page.
+          example: https://chroniclingamerica.loc.gov/lccn/sn84026749/1900-01-01/ed-1/seq-1/ocr.txt
+        ocr_eng:
+          type: string
+          description: URL to the word coordinate XML for English OCR.
+    TitleSummary:
+      type: object
+      description: Summary record for a newspaper title.
+      properties:
+        lccn:
+          type: string
+          description: Library of Congress Control Number.
+          example: sn84026749
+        title:
+          type: string
+          description: Name of the newspaper.
+          example: Chicago Tribune
+        url:
+          type: string
+          description: URL to the full title JSON record.
+          example: https://chroniclingamerica.loc.gov/lccn/sn84026749.json
+        state:
+          type: array
+          items:
+            type: string
+          description: State(s) where the newspaper was published.
+        county:
+          type: array
+          items:
+            type: string
+          description: County or counties of publication.
+        city:
+          type: array
+          items:
+            type: string
+          description: City or cities of publication.
+        start_year:
+          type: string
+          description: First year of publication.
+          example: '1849'
+        end_year:
+          type: string
+          description: Last year of publication (or "present" if ongoing).
+          example: '1920'
+externalDocs:
+  description: Chronicling America API Documentation
+  url: https://chroniclingamerica.loc.gov/about/api/

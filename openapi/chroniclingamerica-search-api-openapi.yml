@@ -1,0 +1,491 @@
+openapi: 3.0.3
+info:
+  title: Chronicling America Batches Search API
+  description: Chronicling America is a Library of Congress initiative providing free public access to a searchable database of historic American newspaper pages from 1770 to 1963. The platform hosts over 20 million digitized newspaper pages from hundreds of US newspapers contributed by institutions in the National Digital Newspaper Program (NDNP). The API exposes search, title, issue, batch, and OCR text endpoints with no authentication required, returning responses in JSON and Atom feed formats.
+  version: 1.0.0
+  contact:
+    name: Library of Congress
+    url: https://www.loc.gov/about/contact-us/
+  termsOfService: https://www.loc.gov/legal/
+  license:
+    name: Public Domain
+    url: https://www.loc.gov/legal/
+servers:
+- url: https://chroniclingamerica.loc.gov
+  description: Chronicling America production server
+tags:
+- name: Search
+  description: Full-text search endpoints for newspaper pages and titles.
+paths:
+  /search/pages/results/:
+    get:
+      operationId: searchPages
+      summary: Search newspaper pages
+      description: Full-text search across over 20 million historic American newspaper pages digitized under the National Digital Newspaper Program. Supports keyword search, date range filtering, state filtering, and newspaper title (LCCN) filtering. Responses are available in JSON or Atom format.
+      tags:
+      - Search
+      parameters:
+      - name: andtext
+        in: query
+        description: Words to search for (AND logic). All words must appear in the page.
+        required: false
+        schema:
+          type: string
+        example: civil war
+      - name: phrasetext
+        in: query
+        description: Exact phrase to search for.
+        required: false
+        schema:
+          type: string
+        example: battle of gettysburg
+      - name: ortext
+        in: query
+        description: Words to search for (OR logic). Any word may appear in the page.
+        required: false
+        schema:
+          type: string
+      - name: nottext
+        in: query
+        description: Words that must NOT appear in the page.
+        required: false
+        schema:
+          type: string
+      - name: format
+        in: query
+        description: Response format. Use json for JSON or atom for Atom feed.
+        required: false
+        schema:
+          type: string
+          enum:
+          - json
+          - atom
+        example: json
+      - name: language
+        in: query
+        description: Limit results to pages in a specific language.
+        required: false
+        schema:
+          type: string
+          enum:
+          - eng
+          - spa
+          - fre
+          - ger
+          - ita
+          - por
+          - cze
+          - pol
+          - hun
+          - dan
+          - nor
+          - swe
+          - fin
+      - name: lccn
+        in: query
+        description: Library of Congress Control Number (LCCN) of a specific newspaper title.
+        required: false
+        schema:
+          type: string
+        example: sn84026749
+      - name: state
+        in: query
+        description: US state name to filter results.
+        required: false
+        schema:
+          type: string
+        example: Montana
+      - name: date1
+        in: query
+        description: Start date for search range (YYYY-MM-DD or YYYYMMDD).
+        required: false
+        schema:
+          type: string
+        example: '1900-01-01'
+      - name: date2
+        in: query
+        description: End date for search range (YYYY-MM-DD or YYYYMMDD).
+        required: false
+        schema:
+          type: string
+        example: '1910-12-31'
+      - name: dateFilterType
+        in: query
+        description: How to apply the date filter.
+        required: false
+        schema:
+          type: string
+          enum:
+          - range
+          - yearRange
+      - name: rows
+        in: query
+        description: Number of results to return per page (default 20, max 100).
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
+          default: 20
+        example: 20
+      - name: page
+        in: query
+        description: Page number for paginated results (1-based).
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          default: 1
+        example: 1
+      - name: sort
+        in: query
+        description: Sort order for results.
+        required: false
+        schema:
+          type: string
+          enum:
+          - relevance
+          - date
+          - title
+          - state
+      - name: sequence
+        in: query
+        description: Page sequence number within an issue.
+        required: false
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Successful search results
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchPagesResponse'
+            application/atom+xml:
+              schema:
+                type: string
+                description: Atom feed of search results
+  /search/titles/results/:
+    get:
+      operationId: searchTitles
+      summary: Search newspaper titles
+      description: Search for newspaper titles in the Chronicling America collection by name, location, LCCN, language, and date range. Returns bibliographic metadata for matching titles.
+      tags:
+      - Search
+      parameters:
+      - name: terms
+        in: query
+        description: Search terms for the title name.
+        required: false
+        schema:
+          type: string
+        example: New York Tribune
+      - name: format
+        in: query
+        description: Response format.
+        required: false
+        schema:
+          type: string
+          enum:
+          - json
+          - atom
+        example: json
+      - name: state
+        in: query
+        description: State where the newspaper was published.
+        required: false
+        schema:
+          type: string
+        example: New York
+      - name: county
+        in: query
+        description: County where the newspaper was published.
+        required: false
+        schema:
+          type: string
+      - name: city
+        in: query
+        description: City where the newspaper was published.
+        required: false
+        schema:
+          type: string
+      - name: language
+        in: query
+        description: Language of the newspaper.
+        required: false
+        schema:
+          type: string
+      - name: ethnicity
+        in: query
+        description: Ethnicity the newspaper was targeted at.
+        required: false
+        schema:
+          type: string
+      - name: labor
+        in: query
+        description: Labor or union affiliation of the newspaper.
+        required: false
+        schema:
+          type: string
+      - name: material_type
+        in: query
+        description: Type of material (e.g., newspaper).
+        required: false
+        schema:
+          type: string
+      - name: date1
+        in: query
+        description: Start year for publication range.
+        required: false
+        schema:
+          type: integer
+        example: 1900
+      - name: date2
+        in: query
+        description: End year for publication range.
+        required: false
+        schema:
+          type: integer
+        example: 1920
+      - name: rows
+        in: query
+        description: Number of results per page.
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
+          default: 20
+      - name: page
+        in: query
+        description: Page number for paginated results.
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          default: 1
+      responses:
+        '200':
+          description: Successful title search results
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchTitlesResponse'
+components:
+  schemas:
+    TitleSummary:
+      type: object
+      description: Summary record for a newspaper title.
+      properties:
+        lccn:
+          type: string
+          description: Library of Congress Control Number.
+          example: sn84026749
+        title:
+          type: string
+          description: Name of the newspaper.
+          example: Chicago Tribune
+        url:
+          type: string
+          description: URL to the full title JSON record.
+          example: https://chroniclingamerica.loc.gov/lccn/sn84026749.json
+        state:
+          type: array
+          items:
+            type: string
+          description: State(s) where the newspaper was published.
+        county:
+          type: array
+          items:
+            type: string
+          description: County or counties of publication.
+        city:
+          type: array
+          items:
+            type: string
+          description: City or cities of publication.
+        start_year:
+          type: string
+          description: First year of publication.
+          example: '1849'
+        end_year:
+          type: string
+          description: Last year of publication (or "present" if ongoing).
+          example: '1920'
+    PageSearchResult:
+      type: object
+      description: A single newspaper page result from a search query.
+      properties:
+        sequence:
+          type: integer
+          description: Page sequence number within the issue.
+          example: 1
+        county:
+          type: array
+          items:
+            type: string
+          description: County or counties where the newspaper was published.
+          example:
+          - Cook
+        edition_label:
+          type: string
+          description: Human-readable edition label.
+          example: Morning edition
+        frequency:
+          type: string
+          description: Publication frequency (e.g., Daily, Weekly).
+          example: Daily
+        id:
+          type: string
+          description: Unique identifier path for this page.
+          example: /lccn/sn84026749/1900-01-01/ed-1/seq-1/
+        subject:
+          type: array
+          items:
+            type: string
+          description: Subject headings for the newspaper title.
+        city:
+          type: array
+          items:
+            type: string
+          description: City or cities where the newspaper was published.
+          example:
+          - Chicago
+        date:
+          type: string
+          description: Publication date in YYYYMMDD format.
+          example: '19000101'
+        title:
+          type: string
+          description: Name of the newspaper title.
+          example: Chicago Tribune
+        end_year:
+          type: integer
+          description: Last year the newspaper was published.
+          example: 1920
+        note:
+          type: array
+          items:
+            type: string
+          description: Bibliographic notes.
+        state:
+          type: array
+          items:
+            type: string
+          description: State(s) where the newspaper was published.
+          example:
+          - Illinois
+        section_label:
+          type: string
+          description: Section label for the page.
+        type:
+          type: string
+          description: Type of item (always "page" for page results).
+          example: page
+        place_of_publication:
+          type: string
+          description: Place of publication string.
+          example: Chicago, Ill.
+        start_year:
+          type: integer
+          description: First year the newspaper was published.
+          example: 1849
+        edition:
+          type: integer
+          description: Edition number.
+          example: 1
+        publisher:
+          type: string
+          description: Publisher name.
+        language:
+          type: array
+          items:
+            type: string
+          description: Language(s) of the newspaper.
+          example:
+          - English
+        alt_title:
+          type: array
+          items:
+            type: string
+          description: Alternative titles for the newspaper.
+        lccn:
+          type: string
+          description: Library of Congress Control Number.
+          example: sn84026749
+        country:
+          type: string
+          description: Country of publication.
+          example: Illinois
+        ocr_eng:
+          type: string
+          description: OCR text extracted from the page in English.
+        batch:
+          type: string
+          description: Batch identifier.
+          example: batch_dlc_jamaica_ver01
+        title_normal:
+          type: string
+          description: Normalized title for sorting.
+          example: chicago tribune
+        url:
+          type: string
+          description: URL to the page JSON record.
+          example: https://chroniclingamerica.loc.gov/lccn/sn84026749/1900-01-01/ed-1/seq-1.json
+        place:
+          type: array
+          items:
+            type: string
+          description: Place names associated with the newspaper.
+        page:
+          type: string
+          description: Page label or number within the issue.
+    SearchPagesResponse:
+      type: object
+      description: Paginated search results for newspaper pages.
+      properties:
+        totalItems:
+          type: integer
+          description: Total number of matching pages across all pages of results.
+          example: 42317
+        endIndex:
+          type: integer
+          description: Index of the last result on the current page.
+          example: 20
+        startIndex:
+          type: integer
+          description: Index of the first result on the current page.
+          example: 1
+        itemsPerPage:
+          type: integer
+          description: Number of results per page.
+          example: 20
+        items:
+          type: array
+          description: Array of matching newspaper page records.
+          items:
+            $ref: '#/components/schemas/PageSearchResult'
+    SearchTitlesResponse:
+      type: object
+      description: Paginated search results for newspaper titles.
+      properties:
+        totalItems:
+          type: integer
+          description: Total number of matching titles.
+        endIndex:
+          type: integer
+          description: Index of the last result on the current page.
+        startIndex:
+          type: integer
+          description: Index of the first result on the current page.
+        itemsPerPage:
+          type: integer
+          description: Number of results per page.
+        items:
+          type: array
+          description: Array of matching newspaper title records.
+          items:
+            $ref: '#/components/schemas/TitleSummary'
+externalDocs:
+  description: Chronicling America API Documentation
+  url: https://chroniclingamerica.loc.gov/about/api/

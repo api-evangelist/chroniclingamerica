@@ -1,0 +1,127 @@
+openapi: 3.0.3
+info:
+  title: Chronicling America Batches API
+  description: Chronicling America is a Library of Congress initiative providing free public access to a searchable database of historic American newspaper pages from 1770 to 1963. The platform hosts over 20 million digitized newspaper pages from hundreds of US newspapers contributed by institutions in the National Digital Newspaper Program (NDNP). The API exposes search, title, issue, batch, and OCR text endpoints with no authentication required, returning responses in JSON and Atom feed formats.
+  version: 1.0.0
+  contact:
+    name: Library of Congress
+    url: https://www.loc.gov/about/contact-us/
+  termsOfService: https://www.loc.gov/legal/
+  license:
+    name: Public Domain
+    url: https://www.loc.gov/legal/
+servers:
+- url: https://chroniclingamerica.loc.gov
+  description: Chronicling America production server
+tags:
+- name: Batches
+  description: Endpoints for retrieving digitization batch information.
+paths:
+  /batches.json:
+    get:
+      operationId: listBatches
+      summary: List all digitization batches
+      description: Retrieve a list of all digitization batches contributed to Chronicling America by participating institutions in the National Digital Newspaper Program. Each batch represents a set of newspaper pages submitted by a single institution.
+      tags:
+      - Batches
+      responses:
+        '200':
+          description: List of all digitization batches
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BatchesListResponse'
+  /batches/{batch_name}.json:
+    get:
+      operationId: getBatch
+      summary: Get a specific digitization batch
+      description: Retrieve metadata for a specific digitization batch including the contributing institution, ingestion date, number of pages, and links to included titles.
+      tags:
+      - Batches
+      parameters:
+      - name: batch_name
+        in: path
+        required: true
+        description: Name of the batch (e.g., batch_dlc_jamaica_ver01).
+        schema:
+          type: string
+        example: batch_dlc_jamaica_ver01
+      responses:
+        '200':
+          description: Batch metadata
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BatchDetail'
+        '404':
+          description: Batch not found
+components:
+  schemas:
+    BatchDetail:
+      type: object
+      description: Detailed metadata for a digitization batch.
+      properties:
+        name:
+          type: string
+          description: Name of the batch.
+          example: batch_dlc_jamaica_ver01
+        url:
+          type: string
+          description: URL to this batch record.
+        awardee:
+          $ref: '#/components/schemas/Awardee'
+        ingested:
+          type: string
+          description: Date and time the batch was ingested (ISO 8601).
+          example: '2007-04-10T00:00:00+00:00'
+        page_count:
+          type: integer
+          description: Total number of pages in this batch.
+        lccns:
+          type: array
+          description: List of LCCNs (newspaper titles) included in this batch.
+          items:
+            type: string
+    Awardee:
+      type: object
+      description: Institution awarded the NDNP grant that contributed this batch.
+      properties:
+        url:
+          type: string
+          description: URL to the awardee record.
+        name:
+          type: string
+          description: Name of the contributing institution.
+          example: Library of Congress
+    BatchesListResponse:
+      type: object
+      description: List of all digitization batches.
+      properties:
+        batches:
+          type: array
+          description: Array of batch records.
+          items:
+            $ref: '#/components/schemas/BatchSummary'
+    BatchSummary:
+      type: object
+      description: Summary record for a digitization batch.
+      properties:
+        name:
+          type: string
+          description: Name of the batch.
+          example: batch_dlc_jamaica_ver01
+        url:
+          type: string
+          description: URL to the batch JSON record.
+        awardee:
+          $ref: '#/components/schemas/Awardee'
+        ingested:
+          type: string
+          description: Date and time the batch was ingested (ISO 8601).
+          example: '2007-04-10T00:00:00+00:00'
+        page_count:
+          type: integer
+          description: Number of pages in this batch.
+externalDocs:
+  description: Chronicling America API Documentation
+  url: https://chroniclingamerica.loc.gov/about/api/
