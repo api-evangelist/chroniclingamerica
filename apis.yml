@@ -6,7 +6,19 @@ description: >-
   digitized newspaper pages from hundreds of US newspapers contributed by institutions in the National
   Digital Newspaper Program (NDNP). The API exposes search, title, issue, batch, and OCR text endpoints
   with no authentication required, returning responses in JSON and Atom feed formats.
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: free
+  onboarding: open
+  trial: false
+  try_now: true
+  public: true
+  label: Free · Open access
+  confidence: medium
+  source:
+  - plans
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/chroniclingamerica.png
 url: https://raw.githubusercontent.com/api-evangelist/chroniclingamerica/refs/heads/main/apis.yml
 created: '2026-06-13'
 modified: '2026-06-13'
@@ -23,88 +35,102 @@ tags:
   - Search
   - Cultural Heritage
 apis:
-  - aid: chroniclingamerica:chronicling-america-search-api
-    name: Chronicling America Search API
-    description: >-
-      The Chronicling America Search API provides full-text search across over 20 million historic
-      American newspaper pages digitized under the National Digital Newspaper Program. Callers can
-      search by keyword, date range, state, newspaper title (LCCN), and page-level fields. Responses
-      are available in JSON or Atom format. No authentication or API key is required.
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    humanURL: https://chroniclingamerica.loc.gov/about/api/
-    baseURL: https://chroniclingamerica.loc.gov
-    tags:
-      - Newspapers
-      - Search
-      - Historical
-      - OCR
-      - Full-Text
-    properties:
-      - type: Documentation
-        url: https://chroniclingamerica.loc.gov/about/api/
-      - type: OpenAPI
-        url: https://raw.githubusercontent.com/api-evangelist/chroniclingamerica/refs/heads/main/openapi/chroniclingamerica-openapi.yml
-      - type: TermsOfService
-        url: https://www.loc.gov/legal/
-      - type: PrivacyPolicy
-        url: https://www.loc.gov/legal/privacy-policy/
-    contact:
-      - FN: Library of Congress
-        url: https://www.loc.gov/about/contact-us/
-  - aid: chroniclingamerica:chronicling-america-titles-api
-    name: Chronicling America Titles API
-    description: >-
-      The Titles API exposes bibliographic metadata for every newspaper title in the Chronicling
-      America collection. Callers can retrieve the full title list, look up a specific title by LCCN
-      (Library of Congress Control Number), list all digitized issues for a title, and retrieve
-      individual batch records. Responses are available in JSON and Atom formats.
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    humanURL: https://chroniclingamerica.loc.gov/about/api/
-    baseURL: https://chroniclingamerica.loc.gov
-    tags:
-      - Newspapers
-      - Titles
-      - LCCN
-      - Bibliographic
-      - Metadata
-    properties:
-      - type: Documentation
-        url: https://chroniclingamerica.loc.gov/about/api/
-      - type: OpenAPI
-        url: https://raw.githubusercontent.com/api-evangelist/chroniclingamerica/refs/heads/main/openapi/chroniclingamerica-openapi.yml
-      - type: TermsOfService
-        url: https://www.loc.gov/legal/
-    contact:
-      - FN: Library of Congress
-        url: https://www.loc.gov/about/contact-us/
-  - aid: chroniclingamerica:chronicling-america-pages-api
-    name: Chronicling America Pages API
-    description: >-
-      The Pages API provides access to individual newspaper page records including OCR text, IIIF image
-      service URLs, PDF downloads, and JP2 image files. Pages are addressed by LCCN, date, edition,
-      and sequence number. OCR text can be retrieved as plain text or coordinates. The underlying image
-      files are available in JP2, PDF, and TIFF formats hosted on LOC storage services.
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    humanURL: https://chroniclingamerica.loc.gov/about/api/
-    baseURL: https://chroniclingamerica.loc.gov
-    tags:
-      - Newspapers
-      - Pages
-      - OCR
-      - Images
-      - PDF
-      - JP2
-      - IIIF
-    properties:
-      - type: Documentation
-        url: https://chroniclingamerica.loc.gov/about/api/
-      - type: OpenAPI
-        url: https://raw.githubusercontent.com/api-evangelist/chroniclingamerica/refs/heads/main/openapi/chroniclingamerica-openapi.yml
-      - type: TermsOfService
-        url: https://www.loc.gov/legal/
-    contact:
-      - FN: Library of Congress
-        url: https://www.loc.gov/about/contact-us/
+- aid: chroniclingamerica:chroniclingamerica-batches-api
+  name: Chronicling America Batches API
+  description: Endpoints for retrieving digitization batch information.
+  humanURL: https://chroniclingamerica.loc.gov/about/api/
+  baseURL: https://chroniclingamerica.loc.gov
+  tags:
+  - Batches
+  properties:
+  - type: OpenAPI
+    url: openapi/chroniclingamerica-batches-api-openapi.yml
+  - type: Documentation
+    url: https://chroniclingamerica.loc.gov/about/api/
+  - type: TermsOfService
+    url: https://www.loc.gov/legal/
+  - type: PrivacyPolicy
+    url: https://www.loc.gov/legal/privacy-policy/
+- aid: chroniclingamerica:chroniclingamerica-issues-api
+  name: Chronicling America Issues API
+  description: Endpoints for retrieving newspaper issue metadata.
+  humanURL: https://chroniclingamerica.loc.gov/about/api/
+  baseURL: https://chroniclingamerica.loc.gov
+  tags:
+  - Issues
+  properties:
+  - type: OpenAPI
+    url: openapi/chroniclingamerica-issues-api-openapi.yml
+  - type: Documentation
+    url: https://chroniclingamerica.loc.gov/about/api/
+  - type: TermsOfService
+    url: https://www.loc.gov/legal/
+  - type: PrivacyPolicy
+    url: https://www.loc.gov/legal/privacy-policy/
+- aid: chroniclingamerica:chroniclingamerica-ocr-api
+  name: Chronicling America OCR API
+  description: Endpoints for retrieving OCR text from digitized newspaper pages.
+  humanURL: https://chroniclingamerica.loc.gov/about/api/
+  baseURL: https://chroniclingamerica.loc.gov
+  tags:
+  - OCR
+  properties:
+  - type: OpenAPI
+    url: openapi/chroniclingamerica-ocr-api-openapi.yml
+  - type: Documentation
+    url: https://chroniclingamerica.loc.gov/about/api/
+  - type: TermsOfService
+    url: https://www.loc.gov/legal/
+  - type: PrivacyPolicy
+    url: https://www.loc.gov/legal/privacy-policy/
+- aid: chroniclingamerica:chroniclingamerica-pages-api
+  name: Chronicling America Pages API
+  description: Endpoints for retrieving individual newspaper page metadata and content.
+  humanURL: https://chroniclingamerica.loc.gov/about/api/
+  baseURL: https://chroniclingamerica.loc.gov
+  tags:
+  - Pages
+  properties:
+  - type: OpenAPI
+    url: openapi/chroniclingamerica-pages-api-openapi.yml
+  - type: Documentation
+    url: https://chroniclingamerica.loc.gov/about/api/
+  - type: TermsOfService
+    url: https://www.loc.gov/legal/
+  - type: PrivacyPolicy
+    url: https://www.loc.gov/legal/privacy-policy/
+- aid: chroniclingamerica:chroniclingamerica-search-api
+  name: Chronicling America Search API
+  description: Full-text search endpoints for newspaper pages and titles.
+  humanURL: https://chroniclingamerica.loc.gov/about/api/
+  baseURL: https://chroniclingamerica.loc.gov
+  tags:
+  - Search
+  properties:
+  - type: OpenAPI
+    url: openapi/chroniclingamerica-search-api-openapi.yml
+  - type: Documentation
+    url: https://chroniclingamerica.loc.gov/about/api/
+  - type: TermsOfService
+    url: https://www.loc.gov/legal/
+  - type: PrivacyPolicy
+    url: https://www.loc.gov/legal/privacy-policy/
+- aid: chroniclingamerica:chroniclingamerica-titles-api
+  name: Chronicling America Titles API
+  description: Endpoints for retrieving newspaper title bibliographic metadata.
+  humanURL: https://chroniclingamerica.loc.gov/about/api/
+  baseURL: https://chroniclingamerica.loc.gov
+  tags:
+  - Titles
+  properties:
+  - type: OpenAPI
+    url: openapi/chroniclingamerica-titles-api-openapi.yml
+  - type: Documentation
+    url: https://chroniclingamerica.loc.gov/about/api/
+  - type: TermsOfService
+    url: https://www.loc.gov/legal/
+  - type: PrivacyPolicy
+    url: https://www.loc.gov/legal/privacy-policy/
 common:
   - type: AgenticAccess
     url: agentic-access/chroniclingamerica-agentic-access.yml
