@@ -1,0 +1,24 @@
+{
+  "provider": "chroniclingamerica",
+  "sources": [
+    "chroniclingamerica-batches-api-openapi.yml",
+    "chroniclingamerica-issues-api-openapi.yml",
+    "chroniclingamerica-ocr-api-openapi.yml",
+    "chroniclingamerica-pages-api-openapi.yml",
+    "chroniclingamerica-search-api-openapi.yml",
+    "chroniclingamerica-titles-api-openapi.yml"
+  ],
+  "outputs": [
+    "chroniclingamerica-batches-api-openapi.yml",
+    "chroniclingamerica-issues-api-openapi.yml",
+    "chroniclingamerica-ocr-api-openapi.yml",
+    "chroniclingamerica-pages-api-openapi.yml",
+    "chroniclingamerica-search-api-openapi.yml",
+    "chroniclingamerica-titles-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

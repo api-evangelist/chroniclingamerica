@@ -1,0 +1,1043 @@
+openapi: 3.0.3
+info:
+  title: Chronicling America API
+  description: >-
+    Chronicling America is a Library of Congress initiative providing free public access to a
+    searchable database of historic American newspaper pages from 1770 to 1963. The platform
+    hosts over 20 million digitized newspaper pages from hundreds of US newspapers contributed
+    by institutions in the National Digital Newspaper Program (NDNP). The API exposes search,
+    title, issue, batch, and OCR text endpoints with no authentication required, returning
+    responses in JSON and Atom feed formats.
+  version: 1.0.0
+  contact:
+    name: Library of Congress
+    url: https://www.loc.gov/about/contact-us/
+  termsOfService: https://www.loc.gov/legal/
+  license:
+    name: Public Domain
+    url: https://www.loc.gov/legal/
+externalDocs:
+  description: Chronicling America API Documentation
+  url: https://chroniclingamerica.loc.gov/about/api/
+servers:
+  - url: https://chroniclingamerica.loc.gov
+    description: Chronicling America production server
+paths:
+  /search/pages/results/:
+    get:
+      operationId: searchPages
+      summary: Search newspaper pages
+      description: >-
+        Full-text search across over 20 million historic American newspaper pages digitized
+        under the National Digital Newspaper Program. Supports keyword search, date range
+        filtering, state filtering, and newspaper title (LCCN) filtering. Responses are
+        available in JSON or Atom format.
+      tags:
+        - Search
+      parameters:
+        - name: andtext
+          in: query
+          description: Words to search for (AND logic). All words must appear in the page.
+          required: false
+          schema:
+            type: string
+          example: civil war
+        - name: phrasetext
+          in: query
+          description: Exact phrase to search for.
+          required: false
+          schema:
+            type: string
+          example: "battle of gettysburg"
+        - name: ortext
+          in: query
+          description: Words to search for (OR logic). Any word may appear in the page.
+          required: false
+          schema:
+            type: string
+        - name: nottext
+          in: query
+          description: Words that must NOT appear in the page.
+          required: false
+          schema:
+            type: string
+        - name: format
+          in: query
+          description: Response format. Use json for JSON or atom for Atom feed.
+          required: false
+          schema:
+            type: string
+            enum:
+              - json
+              - atom
+          example: json
+        - name: language
+          in: query
+          description: Limit results to pages in a specific language.
+          required: false
+          schema:
+            type: string
+            enum:
+              - eng
+              - spa
+              - fre
+              - ger
+              - ita
+              - por
+              - cze
+              - pol
+              - hun
+              - dan
+              - nor
+              - swe
+              - fin
+        - name: lccn
+          in: query
+          description: Library of Congress Control Number (LCCN) of a specific newspaper title.
+          required: false
+          schema:
+            type: string
+          example: sn84026749
+        - name: state
+          in: query
+          description: US state name to filter results.
+          required: false
+          schema:
+            type: string
+          example: Montana
+        - name: date1
+          in: query
+          description: Start date for search range (YYYY-MM-DD or YYYYMMDD).
+          required: false
+          schema:
+            type: string
+          example: "1900-01-01"
+        - name: date2
+          in: query
+          description: End date for search range (YYYY-MM-DD or YYYYMMDD).
+          required: false
+          schema:
+            type: string
+          example: "1910-12-31"
+        - name: dateFilterType
+          in: query
+          description: How to apply the date filter.
+          required: false
+          schema:
+            type: string
+            enum:
+              - range
+              - yearRange
+        - name: rows
+          in: query
+          description: Number of results to return per page (default 20, max 100).
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 20
+          example: 20
+        - name: page
+          in: query
+          description: Page number for paginated results (1-based).
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            default: 1
+          example: 1
+        - name: sort
+          in: query
+          description: Sort order for results.
+          required: false
+          schema:
+            type: string
+            enum:
+              - relevance
+              - date
+              - title
+              - state
+        - name: sequence
+          in: query
+          description: Page sequence number within an issue.
+          required: false
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Successful search results
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchPagesResponse'
+            application/atom+xml:
+              schema:
+                type: string
+                description: Atom feed of search results
+  /search/titles/results/:
+    get:
+      operationId: searchTitles
+      summary: Search newspaper titles
+      description: >-
+        Search for newspaper titles in the Chronicling America collection by name, location,
+        LCCN, language, and date range. Returns bibliographic metadata for matching titles.
+      tags:
+        - Search
+        - Titles
+      parameters:
+        - name: terms
+          in: query
+          description: Search terms for the title name.
+          required: false
+          schema:
+            type: string
+          example: "New York Tribune"
+        - name: format
+          in: query
+          description: Response format.
+          required: false
+          schema:
+            type: string
+            enum:
+              - json
+              - atom
+          example: json
+        - name: state
+          in: query
+          description: State where the newspaper was published.
+          required: false
+          schema:
+            type: string
+          example: "New York"
+        - name: county
+          in: query
+          description: County where the newspaper was published.
+          required: false
+          schema:
+            type: string
+        - name: city
+          in: query
+          description: City where the newspaper was published.
+          required: false
+          schema:
+            type: string
+        - name: language
+          in: query
+          description: Language of the newspaper.
+          required: false
+          schema:
+            type: string
+        - name: ethnicity
+          in: query
+          description: Ethnicity the newspaper was targeted at.
+          required: false
+          schema:
+            type: string
+        - name: labor
+          in: query
+          description: Labor or union affiliation of the newspaper.
+          required: false
+          schema:
+            type: string
+        - name: material_type
+          in: query
+          description: Type of material (e.g., newspaper).
+          required: false
+          schema:
+            type: string
+        - name: date1
+          in: query
+          description: Start year for publication range.
+          required: false
+          schema:
+            type: integer
+          example: 1900
+        - name: date2
+          in: query
+          description: End year for publication range.
+          required: false
+          schema:
+            type: integer
+          example: 1920
+        - name: rows
+          in: query
+          description: Number of results per page.
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 20
+        - name: page
+          in: query
+          description: Page number for paginated results.
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            default: 1
+      responses:
+        "200":
+          description: Successful title search results
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchTitlesResponse'
+  /titles.json:
+    get:
+      operationId: listTitles
+      summary: List all newspaper titles
+      description: >-
+        Retrieve a list of all newspaper titles in the Chronicling America collection.
+        Returns bibliographic metadata including LCCN, title name, publication place,
+        date range, and subject information.
+      tags:
+        - Titles
+      responses:
+        "200":
+          description: List of all newspaper titles
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TitlesListResponse'
+  /titles/{lccn}.json:
+    get:
+      operationId: getTitle
+      summary: Get a specific newspaper title
+      description: >-
+        Retrieve detailed bibliographic metadata for a specific newspaper title identified
+        by its Library of Congress Control Number (LCCN). Includes publication information,
+        language, subject headings, and links to digitized issues.
+      tags:
+        - Titles
+      parameters:
+        - name: lccn
+          in: path
+          required: true
+          description: Library of Congress Control Number (LCCN) for the newspaper title.
+          schema:
+            type: string
+          example: sn84026749
+      responses:
+        "200":
+          description: Newspaper title metadata
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TitleDetail'
+        "404":
+          description: Title not found
+  /titles/{lccn}/issues.json:
+    get:
+      operationId: listIssuesByTitle
+      summary: List issues for a newspaper title
+      description: >-
+        List all digitized issues available for a specific newspaper title identified
+        by its LCCN. Returns date and URL for each issue.
+      tags:
+        - Titles
+        - Issues
+      parameters:
+        - name: lccn
+          in: path
+          required: true
+          description: Library of Congress Control Number (LCCN) for the newspaper title.
+          schema:
+            type: string
+          example: sn84026749
+      responses:
+        "200":
+          description: List of issues for the title
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IssuesListResponse'
+        "404":
+          description: Title not found
+  /titles/{lccn}/issues/{date}/ed-{edition}.json:
+    get:
+      operationId: getIssue
+      summary: Get a specific newspaper issue
+      description: >-
+        Retrieve metadata for a specific issue of a newspaper title, identified by LCCN,
+        publication date, and edition number. Returns links to individual page records.
+      tags:
+        - Issues
+      parameters:
+        - name: lccn
+          in: path
+          required: true
+          description: Library of Congress Control Number (LCCN) for the newspaper title.
+          schema:
+            type: string
+          example: sn84026749
+        - name: date
+          in: path
+          required: true
+          description: Publication date in YYYY-MM-DD format.
+          schema:
+            type: string
+            format: date
+          example: "1900-01-01"
+        - name: edition
+          in: path
+          required: true
+          description: Edition number (usually 1 for the first daily edition).
+          schema:
+            type: integer
+          example: 1
+      responses:
+        "200":
+          description: Issue metadata including pages
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IssueDetail'
+        "404":
+          description: Issue not found
+  /titles/{lccn}/issues/{date}/ed-{edition}/seq-{sequence}.json:
+    get:
+      operationId: getPage
+      summary: Get a specific newspaper page
+      description: >-
+        Retrieve metadata for a specific page within a newspaper issue. Returns OCR text
+        URL, image service URLs (IIIF), PDF download URL, JP2 image URL, and TIFF URL.
+        Page sequence numbering starts at 1.
+      tags:
+        - Pages
+      parameters:
+        - name: lccn
+          in: path
+          required: true
+          description: Library of Congress Control Number (LCCN) for the newspaper title.
+          schema:
+            type: string
+          example: sn84026749
+        - name: date
+          in: path
+          required: true
+          description: Publication date in YYYY-MM-DD format.
+          schema:
+            type: string
+            format: date
+          example: "1900-01-01"
+        - name: edition
+          in: path
+          required: true
+          description: Edition number.
+          schema:
+            type: integer
+          example: 1
+        - name: sequence
+          in: path
+          required: true
+          description: Page sequence number within the issue (1-based).
+          schema:
+            type: integer
+          example: 1
+      responses:
+        "200":
+          description: Page metadata including image and OCR URLs
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PageDetail'
+        "404":
+          description: Page not found
+  /titles/{lccn}/issues/{date}/ed-{edition}/seq-{sequence}/ocr.txt:
+    get:
+      operationId: getPageOcrText
+      summary: Get OCR text for a newspaper page
+      description: >-
+        Retrieve the full plain-text OCR (Optical Character Recognition) content for a
+        specific newspaper page. The text is extracted from digitized images and may
+        contain recognition errors.
+      tags:
+        - Pages
+        - OCR
+      parameters:
+        - name: lccn
+          in: path
+          required: true
+          description: LCCN for the newspaper title.
+          schema:
+            type: string
+          example: sn84026749
+        - name: date
+          in: path
+          required: true
+          description: Publication date in YYYY-MM-DD format.
+          schema:
+            type: string
+            format: date
+          example: "1900-01-01"
+        - name: edition
+          in: path
+          required: true
+          description: Edition number.
+          schema:
+            type: integer
+          example: 1
+        - name: sequence
+          in: path
+          required: true
+          description: Page sequence number.
+          schema:
+            type: integer
+          example: 1
+      responses:
+        "200":
+          description: Plain text OCR content
+          content:
+            text/plain:
+              schema:
+                type: string
+        "404":
+          description: Page not found
+  /batches.json:
+    get:
+      operationId: listBatches
+      summary: List all digitization batches
+      description: >-
+        Retrieve a list of all digitization batches contributed to Chronicling America
+        by participating institutions in the National Digital Newspaper Program. Each
+        batch represents a set of newspaper pages submitted by a single institution.
+      tags:
+        - Batches
+      responses:
+        "200":
+          description: List of all digitization batches
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BatchesListResponse'
+  /batches/{batch_name}.json:
+    get:
+      operationId: getBatch
+      summary: Get a specific digitization batch
+      description: >-
+        Retrieve metadata for a specific digitization batch including the contributing
+        institution, ingestion date, number of pages, and links to included titles.
+      tags:
+        - Batches
+      parameters:
+        - name: batch_name
+          in: path
+          required: true
+          description: Name of the batch (e.g., batch_dlc_jamaica_ver01).
+          schema:
+            type: string
+          example: batch_dlc_jamaica_ver01
+      responses:
+        "200":
+          description: Batch metadata
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BatchDetail'
+        "404":
+          description: Batch not found
+  /newspapers.json:
+    get:
+      operationId: listNewspapers
+      summary: List all newspapers (alias for titles)
+      description: >-
+        An alternative endpoint that lists all newspapers in the Chronicling America
+        collection. Returns the same data as /titles.json but under a different URL
+        path. Useful for discovering available titles.
+      tags:
+        - Titles
+      responses:
+        "200":
+          description: List of all newspapers
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TitlesListResponse'
+components:
+  schemas:
+    SearchPagesResponse:
+      type: object
+      description: Paginated search results for newspaper pages.
+      properties:
+        totalItems:
+          type: integer
+          description: Total number of matching pages across all pages of results.
+          example: 42317
+        endIndex:
+          type: integer
+          description: Index of the last result on the current page.
+          example: 20
+        startIndex:
+          type: integer
+          description: Index of the first result on the current page.
+          example: 1
+        itemsPerPage:
+          type: integer
+          description: Number of results per page.
+          example: 20
+        items:
+          type: array
+          description: Array of matching newspaper page records.
+          items:
+            $ref: '#/components/schemas/PageSearchResult'
+    PageSearchResult:
+      type: object
+      description: A single newspaper page result from a search query.
+      properties:
+        sequence:
+          type: integer
+          description: Page sequence number within the issue.
+          example: 1
+        county:
+          type: array
+          items:
+            type: string
+          description: County or counties where the newspaper was published.
+          example: ["Cook"]
+        edition_label:
+          type: string
+          description: Human-readable edition label.
+          example: "Morning edition"
+        frequency:
+          type: string
+          description: Publication frequency (e.g., Daily, Weekly).
+          example: "Daily"
+        id:
+          type: string
+          description: Unique identifier path for this page.
+          example: "/lccn/sn84026749/1900-01-01/ed-1/seq-1/"
+        subject:
+          type: array
+          items:
+            type: string
+          description: Subject headings for the newspaper title.
+        city:
+          type: array
+          items:
+            type: string
+          description: City or cities where the newspaper was published.
+          example: ["Chicago"]
+        date:
+          type: string
+          description: Publication date in YYYYMMDD format.
+          example: "19000101"
+        title:
+          type: string
+          description: Name of the newspaper title.
+          example: "Chicago Tribune"
+        end_year:
+          type: integer
+          description: Last year the newspaper was published.
+          example: 1920
+        note:
+          type: array
+          items:
+            type: string
+          description: Bibliographic notes.
+        state:
+          type: array
+          items:
+            type: string
+          description: State(s) where the newspaper was published.
+          example: ["Illinois"]
+        section_label:
+          type: string
+          description: Section label for the page.
+        type:
+          type: string
+          description: Type of item (always "page" for page results).
+          example: "page"
+        place_of_publication:
+          type: string
+          description: Place of publication string.
+          example: "Chicago, Ill."
+        start_year:
+          type: integer
+          description: First year the newspaper was published.
+          example: 1849
+        edition:
+          type: integer
+          description: Edition number.
+          example: 1
+        publisher:
+          type: string
+          description: Publisher name.
+        language:
+          type: array
+          items:
+            type: string
+          description: Language(s) of the newspaper.
+          example: ["English"]
+        alt_title:
+          type: array
+          items:
+            type: string
+          description: Alternative titles for the newspaper.
+        lccn:
+          type: string
+          description: Library of Congress Control Number.
+          example: "sn84026749"
+        country:
+          type: string
+          description: Country of publication.
+          example: "Illinois"
+        ocr_eng:
+          type: string
+          description: OCR text extracted from the page in English.
+        batch:
+          type: string
+          description: Batch identifier.
+          example: "batch_dlc_jamaica_ver01"
+        title_normal:
+          type: string
+          description: Normalized title for sorting.
+          example: "chicago tribune"
+        url:
+          type: string
+          description: URL to the page JSON record.
+          example: "https://chroniclingamerica.loc.gov/lccn/sn84026749/1900-01-01/ed-1/seq-1.json"
+        place:
+          type: array
+          items:
+            type: string
+          description: Place names associated with the newspaper.
+        page:
+          type: string
+          description: Page label or number within the issue.
+    SearchTitlesResponse:
+      type: object
+      description: Paginated search results for newspaper titles.
+      properties:
+        totalItems:
+          type: integer
+          description: Total number of matching titles.
+        endIndex:
+          type: integer
+          description: Index of the last result on the current page.
+        startIndex:
+          type: integer
+          description: Index of the first result on the current page.
+        itemsPerPage:
+          type: integer
+          description: Number of results per page.
+        items:
+          type: array
+          description: Array of matching newspaper title records.
+          items:
+            $ref: '#/components/schemas/TitleSummary'
+    TitlesListResponse:
+      type: object
+      description: Complete list of newspaper titles in the collection.
+      properties:
+        newspapers:
+          type: array
+          description: Array of newspaper title records.
+          items:
+            $ref: '#/components/schemas/TitleSummary'
+    TitleSummary:
+      type: object
+      description: Summary record for a newspaper title.
+      properties:
+        lccn:
+          type: string
+          description: Library of Congress Control Number.
+          example: "sn84026749"
+        title:
+          type: string
+          description: Name of the newspaper.
+          example: "Chicago Tribune"
+        url:
+          type: string
+          description: URL to the full title JSON record.
+          example: "https://chroniclingamerica.loc.gov/lccn/sn84026749.json"
+        state:
+          type: array
+          items:
+            type: string
+          description: State(s) where the newspaper was published.
+        county:
+          type: array
+          items:
+            type: string
+          description: County or counties of publication.
+        city:
+          type: array
+          items:
+            type: string
+          description: City or cities of publication.
+        start_year:
+          type: string
+          description: First year of publication.
+          example: "1849"
+        end_year:
+          type: string
+          description: Last year of publication (or "present" if ongoing).
+          example: "1920"
+    TitleDetail:
+      type: object
+      description: Detailed bibliographic metadata for a newspaper title.
+      properties:
+        lccn:
+          type: string
+          description: Library of Congress Control Number.
+          example: "sn84026749"
+        name:
+          type: string
+          description: Title name.
+          example: "Chicago Tribune"
+        url:
+          type: string
+          description: URL to this title record.
+        start_year:
+          type: string
+          description: First year of publication.
+        end_year:
+          type: string
+          description: Last year of publication.
+        place_of_publication:
+          type: string
+          description: Place of publication.
+        publisher:
+          type: string
+          description: Publisher name.
+        frequency:
+          type: string
+          description: Publication frequency.
+          example: "Daily"
+        subject:
+          type: array
+          items:
+            type: string
+          description: Subject headings.
+        note:
+          type: array
+          items:
+            type: string
+          description: Bibliographic notes.
+        language:
+          type: array
+          items:
+            type: string
+          description: Language(s) of publication.
+        country:
+          type: string
+          description: Country of publication.
+        county:
+          type: array
+          items:
+            type: string
+          description: County of publication.
+        city:
+          type: array
+          items:
+            type: string
+          description: City of publication.
+        state:
+          type: array
+          items:
+            type: string
+          description: State of publication.
+        issues:
+          type: array
+          description: List of digitized issues.
+          items:
+            $ref: '#/components/schemas/IssueSummary'
+        place_of_issue:
+          type: string
+          description: Place where the newspaper was issued.
+    IssueSummary:
+      type: object
+      description: Summary of a single newspaper issue.
+      properties:
+        url:
+          type: string
+          description: URL to the issue JSON record.
+        date_issued:
+          type: string
+          description: Date the issue was published (YYYY-MM-DD).
+          example: "1900-01-01"
+    IssuesListResponse:
+      type: object
+      description: List of all issues for a newspaper title.
+      properties:
+        issues:
+          type: array
+          description: Array of issue records.
+          items:
+            $ref: '#/components/schemas/IssueSummary'
+    IssueDetail:
+      type: object
+      description: Detailed metadata for a newspaper issue.
+      properties:
+        url:
+          type: string
+          description: URL to this issue record.
+        date_issued:
+          type: string
+          description: Date the issue was published (YYYY-MM-DD).
+          example: "1900-01-01"
+        volume:
+          type: string
+          description: Volume number.
+        number:
+          type: string
+          description: Issue number within the volume.
+        edition:
+          type: integer
+          description: Edition number.
+          example: 1
+        edition_label:
+          type: string
+          description: Human-readable edition label.
+        batch:
+          type: string
+          description: Digitization batch name.
+        title:
+          $ref: '#/components/schemas/TitleSummary'
+        pages:
+          type: array
+          description: List of pages in this issue.
+          items:
+            $ref: '#/components/schemas/PageSummary'
+    PageSummary:
+      type: object
+      description: Summary of a single newspaper page within an issue.
+      properties:
+        url:
+          type: string
+          description: URL to the page JSON record.
+        sequence:
+          type: integer
+          description: Page sequence number (1-based).
+          example: 1
+        pdf:
+          type: string
+          description: URL to the PDF version of the page.
+        jp2:
+          type: string
+          description: URL to the JP2 image version of the page.
+        ocr:
+          type: string
+          description: URL to the plain text OCR of the page.
+    PageDetail:
+      type: object
+      description: Detailed metadata for a single newspaper page.
+      properties:
+        url:
+          type: string
+          description: URL to this page record.
+        sequence:
+          type: integer
+          description: Page sequence number within the issue (1-based).
+          example: 1
+        title:
+          $ref: '#/components/schemas/TitleSummary'
+        issue:
+          $ref: '#/components/schemas/IssueSummary'
+        edition:
+          type: integer
+          description: Edition number.
+        section_label:
+          type: string
+          description: Section label for this page.
+        edition_label:
+          type: string
+          description: Human-readable edition label.
+        pdf:
+          type: string
+          description: URL to the PDF download for this page.
+          example: "https://chroniclingamerica.loc.gov/lccn/sn84026749/1900-01-01/ed-1/seq-1.pdf"
+        jp2:
+          type: string
+          description: URL to the JPEG 2000 image of this page.
+          example: "https://chroniclingamerica.loc.gov/lccn/sn84026749/1900-01-01/ed-1/seq-1.jp2"
+        tif:
+          type: string
+          description: URL to the TIFF image of this page.
+        text:
+          type: string
+          description: URL to the plain text OCR for this page.
+          example: "https://chroniclingamerica.loc.gov/lccn/sn84026749/1900-01-01/ed-1/seq-1/ocr.txt"
+        ocr_eng:
+          type: string
+          description: URL to the word coordinate XML for English OCR.
+    BatchesListResponse:
+      type: object
+      description: List of all digitization batches.
+      properties:
+        batches:
+          type: array
+          description: Array of batch records.
+          items:
+            $ref: '#/components/schemas/BatchSummary'
+    BatchSummary:
+      type: object
+      description: Summary record for a digitization batch.
+      properties:
+        name:
+          type: string
+          description: Name of the batch.
+          example: "batch_dlc_jamaica_ver01"
+        url:
+          type: string
+          description: URL to the batch JSON record.
+        awardee:
+          $ref: '#/components/schemas/Awardee'
+        ingested:
+          type: string
+          description: Date and time the batch was ingested (ISO 8601).
+          example: "2007-04-10T00:00:00+00:00"
+        page_count:
+          type: integer
+          description: Number of pages in this batch.
+    BatchDetail:
+      type: object
+      description: Detailed metadata for a digitization batch.
+      properties:
+        name:
+          type: string
+          description: Name of the batch.
+          example: "batch_dlc_jamaica_ver01"
+        url:
+          type: string
+          description: URL to this batch record.
+        awardee:
+          $ref: '#/components/schemas/Awardee'
+        ingested:
+          type: string
+          description: Date and time the batch was ingested (ISO 8601).
+          example: "2007-04-10T00:00:00+00:00"
+        page_count:
+          type: integer
+          description: Total number of pages in this batch.
+        lccns:
+          type: array
+          description: List of LCCNs (newspaper titles) included in this batch.
+          items:
+            type: string
+    Awardee:
+      type: object
+      description: Institution awarded the NDNP grant that contributed this batch.
+      properties:
+        url:
+          type: string
+          description: URL to the awardee record.
+        name:
+          type: string
+          description: Name of the contributing institution.
+          example: "Library of Congress"
+tags:
+  - name: Search
+    description: Full-text search endpoints for newspaper pages and titles.
+  - name: Titles
+    description: Endpoints for retrieving newspaper title bibliographic metadata.
+  - name: Issues
+    description: Endpoints for retrieving newspaper issue metadata.
+  - name: Pages
+    description: Endpoints for retrieving individual newspaper page metadata and content.
+  - name: OCR
+    description: Endpoints for retrieving OCR text from digitized newspaper pages.
+  - name: Batches
+    description: Endpoints for retrieving digitization batch information.
