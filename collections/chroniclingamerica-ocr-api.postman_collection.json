@@ -1,0 +1,214 @@
+{
+  "item": [
+    {
+      "id": "e99214be-81d8-4037-922e-0085fa19c346",
+      "name": "OCR",
+      "description": {
+        "content": "Endpoints for retrieving OCR text from digitized newspaper pages.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "10f0f6dc-6ce8-4048-ae30-ed526289b902",
+          "name": "Get OCR text for a newspaper page",
+          "request": {
+            "name": "Get OCR text for a newspaper page",
+            "description": {
+              "content": "Retrieve the full plain-text OCR (Optical Character Recognition) content for a specific newspaper page. The text is extracted from digitized images and may contain recognition errors.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "titles",
+                ":lccn",
+                "issues",
+                ":date",
+                "ed-{{edition}}",
+                "seq-{{sequence}}",
+                "ocr.txt"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "lccn",
+                  "description": "(Required) LCCN for the newspaper title."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<date>",
+                  "key": "date",
+                  "description": "(Required) Publication date in YYYY-MM-DD format."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "text/plain"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e3ae0bfe-44b1-4486-b0fd-3ee3b0af9eec",
+              "name": "Plain text OCR content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "titles",
+                    ":lccn",
+                    "issues",
+                    ":date",
+                    "ed-{{edition}}",
+                    "seq-{{sequence}}",
+                    "ocr.txt"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "lccn",
+                      "description": "(Required) LCCN for the newspaper title."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<date>",
+                      "key": "date",
+                      "description": "(Required) Publication date in YYYY-MM-DD format."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "3172409f-4f19-4aca-a32a-c4ef010f7a33",
+              "name": "Page not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "titles",
+                    ":lccn",
+                    "issues",
+                    ":date",
+                    "ed-{{edition}}",
+                    "seq-{{sequence}}",
+                    "ocr.txt"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "lccn",
+                      "description": "(Required) LCCN for the newspaper title."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<date>",
+                      "key": "date",
+                      "description": "(Required) Publication date in YYYY-MM-DD format."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://chroniclingamerica.loc.gov",
+      "key": "baseUrl"
+    },
+    {
+      "disabled": false,
+      "description": {
+        "content": "(Required) Edition number.",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "<integer>",
+      "key": "edition"
+    },
+    {
+      "disabled": false,
+      "description": {
+        "content": "(Required) Page sequence number.",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "<integer>",
+      "key": "sequence"
+    }
+  ],
+  "info": {
+    "_postman_id": "84cd7b39-cafe-48d5-9a5a-857937a5bb93",
+    "name": "Chronicling America Batches OCR API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Chronicling America is a Library of Congress initiative providing free public access to a searchable database of historic American newspaper pages from 1770 to 1963. The platform hosts over 20 million digitized newspaper pages from hundreds of US newspapers contributed by institutions in the National Digital Newspaper Program (NDNP). The API exposes search, title, issue, batch, and OCR text endpoints with no authentication required, returning responses in JSON and Atom feed formats.\n\nContact Support:\n Name: Library of Congress",
+      "type": "text/plain"
+    }
+  }
+}

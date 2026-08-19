@@ -1,0 +1,214 @@
+{
+  "item": [
+    {
+      "id": "2478d701-60bc-4228-9005-5545662f94b8",
+      "name": "Batches",
+      "description": {
+        "content": "Endpoints for retrieving digitization batch information.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "6ccd6c21-1d35-42eb-8475-9c0f5a9e4710",
+          "name": "List all digitization batches",
+          "request": {
+            "name": "List all digitization batches",
+            "description": {
+              "content": "Retrieve a list of all digitization batches contributed to Chronicling America by participating institutions in the National Digital Newspaper Program. Each batch represents a set of newspaper pages submitted by a single institution.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "batches.json"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "dbb4ace2-d047-4c01-9510-dcc02a71f4ab",
+              "name": "List of all digitization batches",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "batches.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"batches\": [\n    {\n      \"name\": \"batch_dlc_jamaica_ver01\",\n      \"url\": \"string\",\n      \"awardee\": {\n        \"url\": \"string\",\n        \"name\": \"Library of Congress\"\n      },\n      \"ingested\": \"2007-04-10T00:00:00+00:00\",\n      \"page_count\": 1191\n    },\n    {\n      \"name\": \"batch_dlc_jamaica_ver01\",\n      \"url\": \"string\",\n      \"awardee\": {\n        \"url\": \"string\",\n        \"name\": \"Library of Congress\"\n      },\n      \"ingested\": \"2007-04-10T00:00:00+00:00\",\n      \"page_count\": 4084\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "54498196-8725-48df-ae76-646149a7086c",
+          "name": "Get a specific digitization batch",
+          "request": {
+            "name": "Get a specific digitization batch",
+            "description": {
+              "content": "Retrieve metadata for a specific digitization batch including the contributing institution, ingestion date, number of pages, and links to included titles.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "batches",
+                "{{batch_name}}.json"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f59710c7-7b4d-4a16-80a3-4363e7854171",
+              "name": "Batch metadata",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "batches",
+                    "{{batch_name}}.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"batch_dlc_jamaica_ver01\",\n  \"url\": \"string\",\n  \"awardee\": {\n    \"url\": \"string\",\n    \"name\": \"Library of Congress\"\n  },\n  \"ingested\": \"2007-04-10T00:00:00+00:00\",\n  \"page_count\": 6284,\n  \"lccns\": [\n    \"string\",\n    \"string\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "590732c5-e842-4a15-9d4d-d9a1bb5e8d52",
+              "name": "Batch not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "batches",
+                    "{{batch_name}}.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://chroniclingamerica.loc.gov",
+      "key": "baseUrl"
+    },
+    {
+      "disabled": false,
+      "description": {
+        "content": "(Required) Name of the batch (e.g., batch_dlc_jamaica_ver01).",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "<string>",
+      "key": "batch_name"
+    }
+  ],
+  "info": {
+    "_postman_id": "d6580ffa-6085-487c-836e-695134fa416a",
+    "name": "Chronicling America Batches API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Chronicling America is a Library of Congress initiative providing free public access to a searchable database of historic American newspaper pages from 1770 to 1963. The platform hosts over 20 million digitized newspaper pages from hundreds of US newspapers contributed by institutions in the National Digital Newspaper Program (NDNP). The API exposes search, title, issue, batch, and OCR text endpoints with no authentication required, returning responses in JSON and Atom feed formats.\n\nContact Support:\n Name: Library of Congress",
+      "type": "text/plain"
+    }
+  }
+}

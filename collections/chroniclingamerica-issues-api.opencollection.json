@@ -1,0 +1,68 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Chronicling America Batches Issues API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Issues",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List issues for a newspaper title",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://chroniclingamerica.loc.gov/titles/:lccn/issues.json",
+            "params": [
+              {
+                "name": "lccn",
+                "value": "sn84026749",
+                "type": "path",
+                "description": "Library of Congress Control Number (LCCN) for the newspaper title."
+              }
+            ]
+          },
+          "docs": "List all digitized issues available for a specific newspaper title identified by its LCCN. Returns date and URL for each issue."
+        },
+        {
+          "info": {
+            "name": "Get a specific newspaper issue",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://chroniclingamerica.loc.gov/titles/:lccn/issues/:date/ed-:edition.json",
+            "params": [
+              {
+                "name": "lccn",
+                "value": "sn84026749",
+                "type": "path",
+                "description": "Library of Congress Control Number (LCCN) for the newspaper title."
+              },
+              {
+                "name": "date",
+                "value": "1900-01-01",
+                "type": "path",
+                "description": "Publication date in YYYY-MM-DD format."
+              },
+              {
+                "name": "edition",
+                "value": "1",
+                "type": "path",
+                "description": "Edition number (usually 1 for the first daily edition)."
+              }
+            ]
+          },
+          "docs": "Retrieve metadata for a specific issue of a newspaper title, identified by LCCN, publication date, and edition number. Returns links to individual page records."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

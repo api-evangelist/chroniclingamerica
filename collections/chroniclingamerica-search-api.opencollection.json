@@ -1,0 +1,212 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Chronicling America Batches Search API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Search",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Search newspaper pages",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://chroniclingamerica.loc.gov/search/pages/results/",
+            "params": [
+              {
+                "name": "andtext",
+                "value": "civil war",
+                "type": "query",
+                "description": "Words to search for (AND logic). All words must appear in the page."
+              },
+              {
+                "name": "phrasetext",
+                "value": "battle of gettysburg",
+                "type": "query",
+                "description": "Exact phrase to search for."
+              },
+              {
+                "name": "ortext",
+                "value": "",
+                "type": "query",
+                "description": "Words to search for (OR logic). Any word may appear in the page."
+              },
+              {
+                "name": "nottext",
+                "value": "",
+                "type": "query",
+                "description": "Words that must NOT appear in the page."
+              },
+              {
+                "name": "format",
+                "value": "json",
+                "type": "query",
+                "description": "Response format. Use json for JSON or atom for Atom feed."
+              },
+              {
+                "name": "language",
+                "value": "",
+                "type": "query",
+                "description": "Limit results to pages in a specific language."
+              },
+              {
+                "name": "lccn",
+                "value": "sn84026749",
+                "type": "query",
+                "description": "Library of Congress Control Number (LCCN) of a specific newspaper title."
+              },
+              {
+                "name": "state",
+                "value": "Montana",
+                "type": "query",
+                "description": "US state name to filter results."
+              },
+              {
+                "name": "date1",
+                "value": "1900-01-01",
+                "type": "query",
+                "description": "Start date for search range (YYYY-MM-DD or YYYYMMDD)."
+              },
+              {
+                "name": "date2",
+                "value": "1910-12-31",
+                "type": "query",
+                "description": "End date for search range (YYYY-MM-DD or YYYYMMDD)."
+              },
+              {
+                "name": "dateFilterType",
+                "value": "",
+                "type": "query",
+                "description": "How to apply the date filter."
+              },
+              {
+                "name": "rows",
+                "value": "20",
+                "type": "query",
+                "description": "Number of results to return per page (default 20, max 100)."
+              },
+              {
+                "name": "page",
+                "value": "1",
+                "type": "query",
+                "description": "Page number for paginated results (1-based)."
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort order for results."
+              },
+              {
+                "name": "sequence",
+                "value": "",
+                "type": "query",
+                "description": "Page sequence number within an issue."
+              }
+            ]
+          },
+          "docs": "Full-text search across over 20 million historic American newspaper pages digitized under the National Digital Newspaper Program. Supports keyword search, date range filtering, state filtering, and newspaper title (LCCN) filtering. Responses are available in JSON or Atom format."
+        },
+        {
+          "info": {
+            "name": "Search newspaper titles",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://chroniclingamerica.loc.gov/search/titles/results/",
+            "params": [
+              {
+                "name": "terms",
+                "value": "New York Tribune",
+                "type": "query",
+                "description": "Search terms for the title name."
+              },
+              {
+                "name": "format",
+                "value": "json",
+                "type": "query",
+                "description": "Response format."
+              },
+              {
+                "name": "state",
+                "value": "New York",
+                "type": "query",
+                "description": "State where the newspaper was published."
+              },
+              {
+                "name": "county",
+                "value": "",
+                "type": "query",
+                "description": "County where the newspaper was published."
+              },
+              {
+                "name": "city",
+                "value": "",
+                "type": "query",
+                "description": "City where the newspaper was published."
+              },
+              {
+                "name": "language",
+                "value": "",
+                "type": "query",
+                "description": "Language of the newspaper."
+              },
+              {
+                "name": "ethnicity",
+                "value": "",
+                "type": "query",
+                "description": "Ethnicity the newspaper was targeted at."
+              },
+              {
+                "name": "labor",
+                "value": "",
+                "type": "query",
+                "description": "Labor or union affiliation of the newspaper."
+              },
+              {
+                "name": "material_type",
+                "value": "",
+                "type": "query",
+                "description": "Type of material (e.g., newspaper)."
+              },
+              {
+                "name": "date1",
+                "value": "1900",
+                "type": "query",
+                "description": "Start year for publication range."
+              },
+              {
+                "name": "date2",
+                "value": "1920",
+                "type": "query",
+                "description": "End year for publication range."
+              },
+              {
+                "name": "rows",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number for paginated results."
+              }
+            ]
+          },
+          "docs": "Search for newspaper titles in the Chronicling America collection by name, location, LCCN, language, and date range. Returns bibliographic metadata for matching titles."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

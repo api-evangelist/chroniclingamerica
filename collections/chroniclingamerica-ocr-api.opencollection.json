@@ -1,0 +1,55 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Chronicling America Batches OCR API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "OCR",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get OCR text for a newspaper page",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://chroniclingamerica.loc.gov/titles/:lccn/issues/:date/ed-:edition/seq-:sequence/ocr.txt",
+            "params": [
+              {
+                "name": "lccn",
+                "value": "sn84026749",
+                "type": "path",
+                "description": "LCCN for the newspaper title."
+              },
+              {
+                "name": "date",
+                "value": "1900-01-01",
+                "type": "path",
+                "description": "Publication date in YYYY-MM-DD format."
+              },
+              {
+                "name": "edition",
+                "value": "1",
+                "type": "path",
+                "description": "Edition number."
+              },
+              {
+                "name": "sequence",
+                "value": "1",
+                "type": "path",
+                "description": "Page sequence number."
+              }
+            ]
+          },
+          "docs": "Retrieve the full plain-text OCR (Optical Character Recognition) content for a specific newspaper page. The text is extracted from digitized images and may contain recognition errors."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

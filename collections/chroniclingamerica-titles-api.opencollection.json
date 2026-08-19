@@ -1,0 +1,169 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Chronicling America Batches Titles API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Titles",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Search newspaper titles",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://chroniclingamerica.loc.gov/search/titles/results/",
+            "params": [
+              {
+                "name": "terms",
+                "value": "New York Tribune",
+                "type": "query",
+                "description": "Search terms for the title name."
+              },
+              {
+                "name": "format",
+                "value": "json",
+                "type": "query",
+                "description": "Response format."
+              },
+              {
+                "name": "state",
+                "value": "New York",
+                "type": "query",
+                "description": "State where the newspaper was published."
+              },
+              {
+                "name": "county",
+                "value": "",
+                "type": "query",
+                "description": "County where the newspaper was published."
+              },
+              {
+                "name": "city",
+                "value": "",
+                "type": "query",
+                "description": "City where the newspaper was published."
+              },
+              {
+                "name": "language",
+                "value": "",
+                "type": "query",
+                "description": "Language of the newspaper."
+              },
+              {
+                "name": "ethnicity",
+                "value": "",
+                "type": "query",
+                "description": "Ethnicity the newspaper was targeted at."
+              },
+              {
+                "name": "labor",
+                "value": "",
+                "type": "query",
+                "description": "Labor or union affiliation of the newspaper."
+              },
+              {
+                "name": "material_type",
+                "value": "",
+                "type": "query",
+                "description": "Type of material (e.g., newspaper)."
+              },
+              {
+                "name": "date1",
+                "value": "1900",
+                "type": "query",
+                "description": "Start year for publication range."
+              },
+              {
+                "name": "date2",
+                "value": "1920",
+                "type": "query",
+                "description": "End year for publication range."
+              },
+              {
+                "name": "rows",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number for paginated results."
+              }
+            ]
+          },
+          "docs": "Search for newspaper titles in the Chronicling America collection by name, location, LCCN, language, and date range. Returns bibliographic metadata for matching titles."
+        },
+        {
+          "info": {
+            "name": "List all newspaper titles",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://chroniclingamerica.loc.gov/titles.json"
+          },
+          "docs": "Retrieve a list of all newspaper titles in the Chronicling America collection. Returns bibliographic metadata including LCCN, title name, publication place, date range, and subject information."
+        },
+        {
+          "info": {
+            "name": "Get a specific newspaper title",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://chroniclingamerica.loc.gov/titles/:lccn.json",
+            "params": [
+              {
+                "name": "lccn",
+                "value": "sn84026749",
+                "type": "path",
+                "description": "Library of Congress Control Number (LCCN) for the newspaper title."
+              }
+            ]
+          },
+          "docs": "Retrieve detailed bibliographic metadata for a specific newspaper title identified by its Library of Congress Control Number (LCCN). Includes publication information, language, subject headings, and links to digitized issues."
+        },
+        {
+          "info": {
+            "name": "List issues for a newspaper title",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://chroniclingamerica.loc.gov/titles/:lccn/issues.json",
+            "params": [
+              {
+                "name": "lccn",
+                "value": "sn84026749",
+                "type": "path",
+                "description": "Library of Congress Control Number (LCCN) for the newspaper title."
+              }
+            ]
+          },
+          "docs": "List all digitized issues available for a specific newspaper title identified by its LCCN. Returns date and URL for each issue."
+        },
+        {
+          "info": {
+            "name": "List all newspapers (alias for titles)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://chroniclingamerica.loc.gov/newspapers.json"
+          },
+          "docs": "An alternative endpoint that lists all newspapers in the Chronicling America collection. Returns the same data as /titles.json but under a different URL path. Useful for discovering available titles."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

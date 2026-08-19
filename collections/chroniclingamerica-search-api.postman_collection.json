@@ -1,0 +1,468 @@
+{
+  "item": [
+    {
+      "id": "482cb5e7-538e-4e8c-b129-877b26e12453",
+      "name": "Search",
+      "description": {
+        "content": "Full-text search endpoints for newspaper pages and titles.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "46bd6443-1878-4ce4-8ce7-85f45657bb70",
+          "name": "Search newspaper pages",
+          "request": {
+            "name": "Search newspaper pages",
+            "description": {
+              "content": "Full-text search across over 20 million historic American newspaper pages digitized under the National Digital Newspaper Program. Supports keyword search, date range filtering, state filtering, and newspaper title (LCCN) filtering. Responses are available in JSON or Atom format.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "search",
+                "pages",
+                "results",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "andtext",
+                  "value": "<string>",
+                  "description": "Words to search for (AND logic). All words must appear in the page."
+                },
+                {
+                  "disabled": false,
+                  "key": "phrasetext",
+                  "value": "<string>",
+                  "description": "Exact phrase to search for."
+                },
+                {
+                  "disabled": false,
+                  "key": "ortext",
+                  "value": "<string>",
+                  "description": "Words to search for (OR logic). Any word may appear in the page."
+                },
+                {
+                  "disabled": false,
+                  "key": "nottext",
+                  "value": "<string>",
+                  "description": "Words that must NOT appear in the page."
+                },
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "<string>",
+                  "description": "Response format. Use json for JSON or atom for Atom feed."
+                },
+                {
+                  "disabled": false,
+                  "key": "language",
+                  "value": "<string>",
+                  "description": "Limit results to pages in a specific language."
+                },
+                {
+                  "disabled": false,
+                  "key": "lccn",
+                  "value": "<string>",
+                  "description": "Library of Congress Control Number (LCCN) of a specific newspaper title."
+                },
+                {
+                  "disabled": false,
+                  "key": "state",
+                  "value": "<string>",
+                  "description": "US state name to filter results."
+                },
+                {
+                  "disabled": false,
+                  "key": "date1",
+                  "value": "<string>",
+                  "description": "Start date for search range (YYYY-MM-DD or YYYYMMDD)."
+                },
+                {
+                  "disabled": false,
+                  "key": "date2",
+                  "value": "<string>",
+                  "description": "End date for search range (YYYY-MM-DD or YYYYMMDD)."
+                },
+                {
+                  "disabled": false,
+                  "key": "dateFilterType",
+                  "value": "<string>",
+                  "description": "How to apply the date filter."
+                },
+                {
+                  "disabled": false,
+                  "key": "rows",
+                  "value": "20",
+                  "description": "Number of results to return per page (default 20, max 100)."
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number for paginated results (1-based)."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "Sort order for results."
+                },
+                {
+                  "disabled": false,
+                  "key": "sequence",
+                  "value": "<integer>",
+                  "description": "Page sequence number within an issue."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5081cde3-4a5b-49cc-96d3-932e4ead7aec",
+              "name": "Successful search results",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "search",
+                    "pages",
+                    "results",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "andtext",
+                      "value": "civil war"
+                    },
+                    {
+                      "key": "phrasetext",
+                      "value": "battle of gettysburg"
+                    },
+                    {
+                      "key": "ortext",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "nottext",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "language",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "lccn",
+                      "value": "sn84026749"
+                    },
+                    {
+                      "key": "state",
+                      "value": "Montana"
+                    },
+                    {
+                      "key": "date1",
+                      "value": "1900-01-01"
+                    },
+                    {
+                      "key": "date2",
+                      "value": "1910-12-31"
+                    },
+                    {
+                      "key": "dateFilterType",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "rows",
+                      "value": "20"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sequence",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"totalItems\": 42317,\n  \"endIndex\": 20,\n  \"startIndex\": 1,\n  \"itemsPerPage\": 20,\n  \"items\": [\n    {\n      \"sequence\": 1,\n      \"county\": [\n        \"Cook\"\n      ],\n      \"edition_label\": \"Morning edition\",\n      \"frequency\": \"Daily\",\n      \"id\": \"/lccn/sn84026749/1900-01-01/ed-1/seq-1/\",\n      \"subject\": [\n        \"string\",\n        \"string\"\n      ],\n      \"city\": [\n        \"Chicago\"\n      ],\n      \"date\": \"19000101\",\n      \"title\": \"Chicago Tribune\",\n      \"end_year\": 1920,\n      \"note\": [\n        \"string\",\n        \"string\"\n      ],\n      \"state\": [\n        \"Illinois\"\n      ],\n      \"section_label\": \"string\",\n      \"type\": \"page\",\n      \"place_of_publication\": \"Chicago, Ill.\",\n      \"start_year\": 1849,\n      \"edition\": 1,\n      \"publisher\": \"string\",\n      \"language\": [\n        \"English\"\n      ],\n      \"alt_title\": [\n        \"string\",\n        \"string\"\n      ],\n      \"lccn\": \"sn84026749\",\n      \"country\": \"Illinois\",\n      \"ocr_eng\": \"string\",\n      \"batch\": \"batch_dlc_jamaica_ver01\",\n      \"title_normal\": \"chicago tribune\",\n      \"url\": \"https://chroniclingamerica.loc.gov/lccn/sn84026749/1900-01-01/ed-1/seq-1.json\",\n      \"place\": [\n        \"string\",\n        \"string\"\n      ],\n      \"page\": \"string\"\n    },\n    {\n      \"sequence\": 1,\n      \"county\": [\n        \"Cook\"\n      ],\n      \"edition_label\": \"Morning edition\",\n      \"frequency\": \"Daily\",\n      \"id\": \"/lccn/sn84026749/1900-01-01/ed-1/seq-1/\",\n      \"subject\": [\n        \"string\",\n        \"string\"\n      ],\n      \"city\": [\n        \"Chicago\"\n      ],\n      \"date\": \"19000101\",\n      \"title\": \"Chicago Tribune\",\n      \"end_year\": 1920,\n      \"note\": [\n        \"string\",\n        \"string\"\n      ],\n      \"state\": [\n        \"Illinois\"\n      ],\n      \"section_label\": \"string\",\n      \"type\": \"page\",\n      \"place_of_publication\": \"Chicago, Ill.\",\n      \"start_year\": 1849,\n      \"edition\": 1,\n      \"publisher\": \"string\",\n      \"language\": [\n        \"English\"\n      ],\n      \"alt_title\": [\n        \"string\",\n        \"string\"\n      ],\n      \"lccn\": \"sn84026749\",\n      \"country\": \"Illinois\",\n      \"ocr_eng\": \"string\",\n      \"batch\": \"batch_dlc_jamaica_ver01\",\n      \"title_normal\": \"chicago tribune\",\n      \"url\": \"https://chroniclingamerica.loc.gov/lccn/sn84026749/1900-01-01/ed-1/seq-1.json\",\n      \"place\": [\n        \"string\",\n        \"string\"\n      ],\n      \"page\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f616fee8-586e-45aa-af49-12ac68c1495a",
+          "name": "Search newspaper titles",
+          "request": {
+            "name": "Search newspaper titles",
+            "description": {
+              "content": "Search for newspaper titles in the Chronicling America collection by name, location, LCCN, language, and date range. Returns bibliographic metadata for matching titles.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "search",
+                "titles",
+                "results",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "terms",
+                  "value": "<string>",
+                  "description": "Search terms for the title name."
+                },
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "<string>",
+                  "description": "Response format."
+                },
+                {
+                  "disabled": false,
+                  "key": "state",
+                  "value": "<string>",
+                  "description": "State where the newspaper was published."
+                },
+                {
+                  "disabled": false,
+                  "key": "county",
+                  "value": "<string>",
+                  "description": "County where the newspaper was published."
+                },
+                {
+                  "disabled": false,
+                  "key": "city",
+                  "value": "<string>",
+                  "description": "City where the newspaper was published."
+                },
+                {
+                  "disabled": false,
+                  "key": "language",
+                  "value": "<string>",
+                  "description": "Language of the newspaper."
+                },
+                {
+                  "disabled": false,
+                  "key": "ethnicity",
+                  "value": "<string>",
+                  "description": "Ethnicity the newspaper was targeted at."
+                },
+                {
+                  "disabled": false,
+                  "key": "labor",
+                  "value": "<string>",
+                  "description": "Labor or union affiliation of the newspaper."
+                },
+                {
+                  "disabled": false,
+                  "key": "material_type",
+                  "value": "<string>",
+                  "description": "Type of material (e.g., newspaper)."
+                },
+                {
+                  "disabled": false,
+                  "key": "date1",
+                  "value": "<integer>",
+                  "description": "Start year for publication range."
+                },
+                {
+                  "disabled": false,
+                  "key": "date2",
+                  "value": "<integer>",
+                  "description": "End year for publication range."
+                },
+                {
+                  "disabled": false,
+                  "key": "rows",
+                  "value": "20",
+                  "description": "Number of results per page."
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number for paginated results."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e8fb749d-c7ae-47aa-a5e2-badd312142ce",
+              "name": "Successful title search results",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "search",
+                    "titles",
+                    "results",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "terms",
+                      "value": "New York Tribune"
+                    },
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "state",
+                      "value": "New York"
+                    },
+                    {
+                      "key": "county",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "city",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "language",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ethnicity",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "labor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "material_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "date1",
+                      "value": "1900"
+                    },
+                    {
+                      "key": "date2",
+                      "value": "1920"
+                    },
+                    {
+                      "key": "rows",
+                      "value": "20"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"totalItems\": 6638,\n  \"endIndex\": 1894,\n  \"startIndex\": 631,\n  \"itemsPerPage\": 3630,\n  \"items\": [\n    {\n      \"lccn\": \"sn84026749\",\n      \"title\": \"Chicago Tribune\",\n      \"url\": \"https://chroniclingamerica.loc.gov/lccn/sn84026749.json\",\n      \"state\": [\n        \"string\",\n        \"string\"\n      ],\n      \"county\": [\n        \"string\",\n        \"string\"\n      ],\n      \"city\": [\n        \"string\",\n        \"string\"\n      ],\n      \"start_year\": \"1849\",\n      \"end_year\": \"1920\"\n    },\n    {\n      \"lccn\": \"sn84026749\",\n      \"title\": \"Chicago Tribune\",\n      \"url\": \"https://chroniclingamerica.loc.gov/lccn/sn84026749.json\",\n      \"state\": [\n        \"string\",\n        \"string\"\n      ],\n      \"county\": [\n        \"string\",\n        \"string\"\n      ],\n      \"city\": [\n        \"string\",\n        \"string\"\n      ],\n      \"start_year\": \"1849\",\n      \"end_year\": \"1920\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://chroniclingamerica.loc.gov",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "0ab5df8f-96ed-4e1b-8935-19df899da9f5",
+    "name": "Chronicling America Batches Search API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Chronicling America is a Library of Congress initiative providing free public access to a searchable database of historic American newspaper pages from 1770 to 1963. The platform hosts over 20 million digitized newspaper pages from hundreds of US newspapers contributed by institutions in the National Digital Newspaper Program (NDNP). The API exposes search, title, issue, batch, and OCR text endpoints with no authentication required, returning responses in JSON and Atom feed formats.\n\nContact Support:\n Name: Library of Congress",
+      "type": "text/plain"
+    }
+  }
+}

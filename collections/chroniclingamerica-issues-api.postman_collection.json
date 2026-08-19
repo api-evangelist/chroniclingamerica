@@ -1,0 +1,327 @@
+{
+  "item": [
+    {
+      "id": "5852f9f8-3b8b-477e-9cf0-611bdd990b49",
+      "name": "Issues",
+      "description": {
+        "content": "Endpoints for retrieving newspaper issue metadata.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "fb8c59a5-1922-46e6-94df-580e99c72972",
+          "name": "List issues for a newspaper title",
+          "request": {
+            "name": "List issues for a newspaper title",
+            "description": {
+              "content": "List all digitized issues available for a specific newspaper title identified by its LCCN. Returns date and URL for each issue.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "titles",
+                ":lccn",
+                "issues.json"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "lccn",
+                  "description": "(Required) Library of Congress Control Number (LCCN) for the newspaper title."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "557eaf48-3022-4964-a5ca-38ac3dde35d8",
+              "name": "List of issues for the title",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "titles",
+                    ":lccn",
+                    "issues.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "lccn",
+                      "description": "(Required) Library of Congress Control Number (LCCN) for the newspaper title."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"issues\": [\n    {\n      \"url\": \"string\",\n      \"date_issued\": \"1900-01-01\"\n    },\n    {\n      \"url\": \"string\",\n      \"date_issued\": \"1900-01-01\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3afe1f68-485f-42ab-8521-258ce7f88849",
+              "name": "Title not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "titles",
+                    ":lccn",
+                    "issues.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "lccn",
+                      "description": "(Required) Library of Congress Control Number (LCCN) for the newspaper title."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "14b4d1c1-7907-4039-8cff-4be8fb69e9b9",
+          "name": "Get a specific newspaper issue",
+          "request": {
+            "name": "Get a specific newspaper issue",
+            "description": {
+              "content": "Retrieve metadata for a specific issue of a newspaper title, identified by LCCN, publication date, and edition number. Returns links to individual page records.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "titles",
+                ":lccn",
+                "issues",
+                ":date",
+                "ed-{{edition}}.json"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "lccn",
+                  "description": "(Required) Library of Congress Control Number (LCCN) for the newspaper title."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<date>",
+                  "key": "date",
+                  "description": "(Required) Publication date in YYYY-MM-DD format."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "898ac9c5-2a1f-498b-9519-3e4907c266bb",
+              "name": "Issue metadata including pages",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "titles",
+                    ":lccn",
+                    "issues",
+                    ":date",
+                    "ed-{{edition}}.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "lccn",
+                      "description": "(Required) Library of Congress Control Number (LCCN) for the newspaper title."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<date>",
+                      "key": "date",
+                      "description": "(Required) Publication date in YYYY-MM-DD format."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"url\": \"string\",\n  \"date_issued\": \"1900-01-01\",\n  \"volume\": \"string\",\n  \"number\": \"string\",\n  \"edition\": 1,\n  \"edition_label\": \"string\",\n  \"batch\": \"string\",\n  \"title\": {\n    \"lccn\": \"sn84026749\",\n    \"title\": \"Chicago Tribune\",\n    \"url\": \"https://chroniclingamerica.loc.gov/lccn/sn84026749.json\",\n    \"state\": [\n      \"string\",\n      \"string\"\n    ],\n    \"county\": [\n      \"string\",\n      \"string\"\n    ],\n    \"city\": [\n      \"string\",\n      \"string\"\n    ],\n    \"start_year\": \"1849\",\n    \"end_year\": \"1920\"\n  },\n  \"pages\": [\n    {\n      \"url\": \"string\",\n      \"sequence\": 1,\n      \"pdf\": \"string\",\n      \"jp2\": \"string\",\n      \"ocr\": \"string\"\n    },\n    {\n      \"url\": \"string\",\n      \"sequence\": 1,\n      \"pdf\": \"string\",\n      \"jp2\": \"string\",\n      \"ocr\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "95334001-4920-4162-8f6c-1b4104e6e6aa",
+              "name": "Issue not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "titles",
+                    ":lccn",
+                    "issues",
+                    ":date",
+                    "ed-{{edition}}.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "lccn",
+                      "description": "(Required) Library of Congress Control Number (LCCN) for the newspaper title."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<date>",
+                      "key": "date",
+                      "description": "(Required) Publication date in YYYY-MM-DD format."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://chroniclingamerica.loc.gov",
+      "key": "baseUrl"
+    },
+    {
+      "disabled": false,
+      "description": {
+        "content": "(Required) Edition number (usually 1 for the first daily edition).",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "<integer>",
+      "key": "edition"
+    }
+  ],
+  "info": {
+    "_postman_id": "82cfbdce-7891-47fa-ba23-c9fcc90dc94d",
+    "name": "Chronicling America Batches Issues API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Chronicling America is a Library of Congress initiative providing free public access to a searchable database of historic American newspaper pages from 1770 to 1963. The platform hosts over 20 million digitized newspaper pages from hundreds of US newspapers contributed by institutions in the National Digital Newspaper Program (NDNP). The API exposes search, title, issue, batch, and OCR text endpoints with no authentication required, returning responses in JSON and Atom feed formats.\n\nContact Support:\n Name: Library of Congress",
+      "type": "text/plain"
+    }
+  }
+}

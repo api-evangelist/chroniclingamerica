@@ -1,0 +1,48 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Chronicling America Batches API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Batches",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all digitization batches",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://chroniclingamerica.loc.gov/batches.json"
+          },
+          "docs": "Retrieve a list of all digitization batches contributed to Chronicling America by participating institutions in the National Digital Newspaper Program. Each batch represents a set of newspaper pages submitted by a single institution."
+        },
+        {
+          "info": {
+            "name": "Get a specific digitization batch",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://chroniclingamerica.loc.gov/batches/:batch_name.json",
+            "params": [
+              {
+                "name": "batch_name",
+                "value": "batch_dlc_jamaica_ver01",
+                "type": "path",
+                "description": "Name of the batch (e.g., batch_dlc_jamaica_ver01)."
+              }
+            ]
+          },
+          "docs": "Retrieve metadata for a specific digitization batch including the contributing institution, ingestion date, number of pages, and links to included titles."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
