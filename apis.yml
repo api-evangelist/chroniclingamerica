@@ -6,6 +6,18 @@ description: >-
   digitized newspaper pages from hundreds of US newspapers contributed by institutions in the National
   Digital Newspaper Program (NDNP). The API exposes search, title, issue, batch, and OCR text endpoints
   with no authentication required, returning responses in JSON and Atom feed formats.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: free
   onboarding: open
