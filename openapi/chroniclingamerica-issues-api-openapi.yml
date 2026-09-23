@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Chronicling America Batches Issues API
+  title: Chronicling America Issues API
   description: Chronicling America is a Library of Congress initiative providing free public access to a searchable database of historic American newspaper pages from 1770 to 1963. The platform hosts over 20 million digitized newspaper pages from hundreds of US newspapers contributed by institutions in the National Digital Newspaper Program (NDNP). The API exposes search, title, issue, batch, and OCR text endpoints with no authentication required, returning responses in JSON and Atom feed formats.
   version: 1.0.0
   contact:
@@ -82,60 +82,6 @@ paths:
           description: Issue not found
 components:
   schemas:
-    IssueDetail:
-      type: object
-      description: Detailed metadata for a newspaper issue.
-      properties:
-        url:
-          type: string
-          description: URL to this issue record.
-        date_issued:
-          type: string
-          description: Date the issue was published (YYYY-MM-DD).
-          example: '1900-01-01'
-        volume:
-          type: string
-          description: Volume number.
-        number:
-          type: string
-          description: Issue number within the volume.
-        edition:
-          type: integer
-          description: Edition number.
-          example: 1
-        edition_label:
-          type: string
-          description: Human-readable edition label.
-        batch:
-          type: string
-          description: Digitization batch name.
-        title:
-          $ref: '#/components/schemas/TitleSummary'
-        pages:
-          type: array
-          description: List of pages in this issue.
-          items:
-            $ref: '#/components/schemas/PageSummary'
-    IssuesListResponse:
-      type: object
-      description: List of all issues for a newspaper title.
-      properties:
-        issues:
-          type: array
-          description: Array of issue records.
-          items:
-            $ref: '#/components/schemas/IssueSummary'
-    IssueSummary:
-      type: object
-      description: Summary of a single newspaper issue.
-      properties:
-        url:
-          type: string
-          description: URL to the issue JSON record.
-        date_issued:
-          type: string
-          description: Date the issue was published (YYYY-MM-DD).
-          example: '1900-01-01'
     TitleSummary:
       type: object
       description: Summary record for a newspaper title.
@@ -175,6 +121,51 @@ components:
           type: string
           description: Last year of publication (or "present" if ongoing).
           example: '1920'
+    IssueSummary:
+      type: object
+      description: Summary of a single newspaper issue.
+      properties:
+        url:
+          type: string
+          description: URL to the issue JSON record.
+        date_issued:
+          type: string
+          description: Date the issue was published (YYYY-MM-DD).
+          example: '1900-01-01'
+    IssueDetail:
+      type: object
+      description: Detailed metadata for a newspaper issue.
+      properties:
+        url:
+          type: string
+          description: URL to this issue record.
+        date_issued:
+          type: string
+          description: Date the issue was published (YYYY-MM-DD).
+          example: '1900-01-01'
+        volume:
+          type: string
+          description: Volume number.
+        number:
+          type: string
+          description: Issue number within the volume.
+        edition:
+          type: integer
+          description: Edition number.
+          example: 1
+        edition_label:
+          type: string
+          description: Human-readable edition label.
+        batch:
+          type: string
+          description: Digitization batch name.
+        title:
+          $ref: '#/components/schemas/TitleSummary'
+        pages:
+          type: array
+          description: List of pages in this issue.
+          items:
+            $ref: '#/components/schemas/PageSummary'
     PageSummary:
       type: object
       description: Summary of a single newspaper page within an issue.
@@ -195,6 +186,15 @@ components:
         ocr:
           type: string
           description: URL to the plain text OCR of the page.
+    IssuesListResponse:
+      type: object
+      description: List of all issues for a newspaper title.
+      properties:
+        issues:
+          type: array
+          description: Array of issue records.
+          items:
+            $ref: '#/components/schemas/IssueSummary'
 externalDocs:
   description: Chronicling America API Documentation
   url: https://chroniclingamerica.loc.gov/about/api/

@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: Chronicling America Batches API
   description: Chronicling America is a Library of Congress initiative providing free public access to a searchable database of historic American newspaper pages from 1770 to 1963. The platform hosts over 20 million digitized newspaper pages from hundreds of US newspapers contributed by institutions in the National Digital Newspaper Program (NDNP). The API exposes search, title, issue, batch, and OCR text endpoints with no authentication required, returning responses in JSON and Atom feed formats.
@@ -57,6 +57,46 @@ paths:
           description: Batch not found
 components:
   schemas:
+    BatchSummary:
+      type: object
+      description: Summary record for a digitization batch.
+      properties:
+        name:
+          type: string
+          description: Name of the batch.
+          example: batch_dlc_jamaica_ver01
+        url:
+          type: string
+          description: URL to the batch JSON record.
+        awardee:
+          $ref: '#/components/schemas/Awardee'
+        ingested:
+          type: string
+          description: Date and time the batch was ingested (ISO 8601).
+          example: '2007-04-10T00:00:00+00:00'
+        page_count:
+          type: integer
+          description: Number of pages in this batch.
+    BatchesListResponse:
+      type: object
+      description: List of all digitization batches.
+      properties:
+        batches:
+          type: array
+          description: Array of batch records.
+          items:
+            $ref: '#/components/schemas/BatchSummary'
+    Awardee:
+      type: object
+      description: Institution awarded the NDNP grant that contributed this batch.
+      properties:
+        url:
+          type: string
+          description: URL to the awardee record.
+        name:
+          type: string
+          description: Name of the contributing institution.
+          example: Library of Congress
     BatchDetail:
       type: object
       description: Detailed metadata for a digitization batch.
@@ -82,46 +122,6 @@ components:
           description: List of LCCNs (newspaper titles) included in this batch.
           items:
             type: string
-    Awardee:
-      type: object
-      description: Institution awarded the NDNP grant that contributed this batch.
-      properties:
-        url:
-          type: string
-          description: URL to the awardee record.
-        name:
-          type: string
-          description: Name of the contributing institution.
-          example: Library of Congress
-    BatchesListResponse:
-      type: object
-      description: List of all digitization batches.
-      properties:
-        batches:
-          type: array
-          description: Array of batch records.
-          items:
-            $ref: '#/components/schemas/BatchSummary'
-    BatchSummary:
-      type: object
-      description: Summary record for a digitization batch.
-      properties:
-        name:
-          type: string
-          description: Name of the batch.
-          example: batch_dlc_jamaica_ver01
-        url:
-          type: string
-          description: URL to the batch JSON record.
-        awardee:
-          $ref: '#/components/schemas/Awardee'
-        ingested:
-          type: string
-          description: Date and time the batch was ingested (ISO 8601).
-          example: '2007-04-10T00:00:00+00:00'
-        page_count:
-          type: integer
-          description: Number of pages in this batch.
 externalDocs:
   description: Chronicling America API Documentation
   url: https://chroniclingamerica.loc.gov/about/api/

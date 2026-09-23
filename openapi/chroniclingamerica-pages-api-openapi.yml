@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Chronicling America Batches Pages API
+  title: Chronicling America Pages API
   description: Chronicling America is a Library of Congress initiative providing free public access to a searchable database of historic American newspaper pages from 1770 to 1963. The platform hosts over 20 million digitized newspaper pages from hundreds of US newspapers contributed by institutions in the National Digital Newspaper Program (NDNP). The API exposes search, title, issue, batch, and OCR text endpoints with no authentication required, returning responses in JSON and Atom feed formats.
   version: 1.0.0
   contact:
@@ -111,6 +111,45 @@ paths:
           description: Page not found
 components:
   schemas:
+    TitleSummary:
+      type: object
+      description: Summary record for a newspaper title.
+      properties:
+        lccn:
+          type: string
+          description: Library of Congress Control Number.
+          example: sn84026749
+        title:
+          type: string
+          description: Name of the newspaper.
+          example: Chicago Tribune
+        url:
+          type: string
+          description: URL to the full title JSON record.
+          example: https://chroniclingamerica.loc.gov/lccn/sn84026749.json
+        state:
+          type: array
+          items:
+            type: string
+          description: State(s) where the newspaper was published.
+        county:
+          type: array
+          items:
+            type: string
+          description: County or counties of publication.
+        city:
+          type: array
+          items:
+            type: string
+          description: City or cities of publication.
+        start_year:
+          type: string
+          description: First year of publication.
+          example: '1849'
+        end_year:
+          type: string
+          description: Last year of publication (or "present" if ongoing).
+          example: '1920'
     IssueSummary:
       type: object
       description: Summary of a single newspaper issue.
@@ -164,45 +203,6 @@ components:
         ocr_eng:
           type: string
           description: URL to the word coordinate XML for English OCR.
-    TitleSummary:
-      type: object
-      description: Summary record for a newspaper title.
-      properties:
-        lccn:
-          type: string
-          description: Library of Congress Control Number.
-          example: sn84026749
-        title:
-          type: string
-          description: Name of the newspaper.
-          example: Chicago Tribune
-        url:
-          type: string
-          description: URL to the full title JSON record.
-          example: https://chroniclingamerica.loc.gov/lccn/sn84026749.json
-        state:
-          type: array
-          items:
-            type: string
-          description: State(s) where the newspaper was published.
-        county:
-          type: array
-          items:
-            type: string
-          description: County or counties of publication.
-        city:
-          type: array
-          items:
-            type: string
-          description: City or cities of publication.
-        start_year:
-          type: string
-          description: First year of publication.
-          example: '1849'
-        end_year:
-          type: string
-          description: Last year of publication (or "present" if ongoing).
-          example: '1920'
 externalDocs:
   description: Chronicling America API Documentation
   url: https://chroniclingamerica.loc.gov/about/api/

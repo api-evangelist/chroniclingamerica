@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Chronicling America Batches Titles API
+  title: Chronicling America Titles API
   description: Chronicling America is a Library of Congress initiative providing free public access to a searchable database of historic American newspaper pages from 1770 to 1963. The platform hosts over 20 million digitized newspaper pages from hundreds of US newspapers contributed by institutions in the National Digital Newspaper Program (NDNP). The API exposes search, title, issue, batch, and OCR text endpoints with no authentication required, returning responses in JSON and Atom feed formats.
   version: 1.0.0
   contact:
@@ -201,47 +201,6 @@ paths:
                 $ref: '#/components/schemas/TitlesListResponse'
 components:
   schemas:
-    SearchTitlesResponse:
-      type: object
-      description: Paginated search results for newspaper titles.
-      properties:
-        totalItems:
-          type: integer
-          description: Total number of matching titles.
-        endIndex:
-          type: integer
-          description: Index of the last result on the current page.
-        startIndex:
-          type: integer
-          description: Index of the first result on the current page.
-        itemsPerPage:
-          type: integer
-          description: Number of results per page.
-        items:
-          type: array
-          description: Array of matching newspaper title records.
-          items:
-            $ref: '#/components/schemas/TitleSummary'
-    IssuesListResponse:
-      type: object
-      description: List of all issues for a newspaper title.
-      properties:
-        issues:
-          type: array
-          description: Array of issue records.
-          items:
-            $ref: '#/components/schemas/IssueSummary'
-    IssueSummary:
-      type: object
-      description: Summary of a single newspaper issue.
-      properties:
-        url:
-          type: string
-          description: URL to the issue JSON record.
-        date_issued:
-          type: string
-          description: Date the issue was published (YYYY-MM-DD).
-          example: '1900-01-01'
     TitleSummary:
       type: object
       description: Summary record for a newspaper title.
@@ -281,6 +240,38 @@ components:
           type: string
           description: Last year of publication (or "present" if ongoing).
           example: '1920'
+    IssueSummary:
+      type: object
+      description: Summary of a single newspaper issue.
+      properties:
+        url:
+          type: string
+          description: URL to the issue JSON record.
+        date_issued:
+          type: string
+          description: Date the issue was published (YYYY-MM-DD).
+          example: '1900-01-01'
+    SearchTitlesResponse:
+      type: object
+      description: Paginated search results for newspaper titles.
+      properties:
+        totalItems:
+          type: integer
+          description: Total number of matching titles.
+        endIndex:
+          type: integer
+          description: Index of the last result on the current page.
+        startIndex:
+          type: integer
+          description: Index of the first result on the current page.
+        itemsPerPage:
+          type: integer
+          description: Number of results per page.
+        items:
+          type: array
+          description: Array of matching newspaper title records.
+          items:
+            $ref: '#/components/schemas/TitleSummary'
     TitlesListResponse:
       type: object
       description: Complete list of newspaper titles in the collection.
@@ -362,6 +353,15 @@ components:
         place_of_issue:
           type: string
           description: Place where the newspaper was issued.
+    IssuesListResponse:
+      type: object
+      description: List of all issues for a newspaper title.
+      properties:
+        issues:
+          type: array
+          description: Array of issue records.
+          items:
+            $ref: '#/components/schemas/IssueSummary'
 externalDocs:
   description: Chronicling America API Documentation
   url: https://chroniclingamerica.loc.gov/about/api/

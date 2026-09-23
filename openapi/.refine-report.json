@@ -1,12 +1,7 @@
 {
   "provider": "chroniclingamerica",
   "sources": [
-    "chroniclingamerica-batches-api-openapi.yml",
-    "chroniclingamerica-issues-api-openapi.yml",
-    "chroniclingamerica-ocr-api-openapi.yml",
-    "chroniclingamerica-pages-api-openapi.yml",
-    "chroniclingamerica-search-api-openapi.yml",
-    "chroniclingamerica-titles-api-openapi.yml"
+    "_original/chroniclingamerica-openapi.yml"
   ],
   "outputs": [
     "chroniclingamerica-batches-api-openapi.yml",
@@ -19,6 +14,17 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "chroniclingamerica-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "chroniclingamerica-batches-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "chroniclingamerica-issues-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "chroniclingamerica-ocr-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "chroniclingamerica-pages-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "chroniclingamerica-search-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "chroniclingamerica-titles-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }
