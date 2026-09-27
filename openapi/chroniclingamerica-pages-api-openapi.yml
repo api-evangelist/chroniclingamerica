@@ -111,6 +111,17 @@ paths:
           description: Page not found
 components:
   schemas:
+    IssueSummary:
+      type: object
+      description: Summary of a single newspaper issue.
+      properties:
+        url:
+          type: string
+          description: URL to the issue JSON record.
+        date_issued:
+          type: string
+          description: Date the issue was published (YYYY-MM-DD).
+          example: '1900-01-01'
     TitleSummary:
       type: object
       description: Summary record for a newspaper title.
@@ -150,17 +161,6 @@ components:
           type: string
           description: Last year of publication (or "present" if ongoing).
           example: '1920'
-    IssueSummary:
-      type: object
-      description: Summary of a single newspaper issue.
-      properties:
-        url:
-          type: string
-          description: URL to the issue JSON record.
-        date_issued:
-          type: string
-          description: Date the issue was published (YYYY-MM-DD).
-          example: '1900-01-01'
     PageDetail:
       type: object
       description: Detailed metadata for a single newspaper page.

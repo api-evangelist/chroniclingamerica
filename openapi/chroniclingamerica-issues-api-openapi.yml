@@ -82,45 +82,6 @@ paths:
           description: Issue not found
 components:
   schemas:
-    TitleSummary:
-      type: object
-      description: Summary record for a newspaper title.
-      properties:
-        lccn:
-          type: string
-          description: Library of Congress Control Number.
-          example: sn84026749
-        title:
-          type: string
-          description: Name of the newspaper.
-          example: Chicago Tribune
-        url:
-          type: string
-          description: URL to the full title JSON record.
-          example: https://chroniclingamerica.loc.gov/lccn/sn84026749.json
-        state:
-          type: array
-          items:
-            type: string
-          description: State(s) where the newspaper was published.
-        county:
-          type: array
-          items:
-            type: string
-          description: County or counties of publication.
-        city:
-          type: array
-          items:
-            type: string
-          description: City or cities of publication.
-        start_year:
-          type: string
-          description: First year of publication.
-          example: '1849'
-        end_year:
-          type: string
-          description: Last year of publication (or "present" if ongoing).
-          example: '1920'
     IssueSummary:
       type: object
       description: Summary of a single newspaper issue.
@@ -186,6 +147,45 @@ components:
         ocr:
           type: string
           description: URL to the plain text OCR of the page.
+    TitleSummary:
+      type: object
+      description: Summary record for a newspaper title.
+      properties:
+        lccn:
+          type: string
+          description: Library of Congress Control Number.
+          example: sn84026749
+        title:
+          type: string
+          description: Name of the newspaper.
+          example: Chicago Tribune
+        url:
+          type: string
+          description: URL to the full title JSON record.
+          example: https://chroniclingamerica.loc.gov/lccn/sn84026749.json
+        state:
+          type: array
+          items:
+            type: string
+          description: State(s) where the newspaper was published.
+        county:
+          type: array
+          items:
+            type: string
+          description: County or counties of publication.
+        city:
+          type: array
+          items:
+            type: string
+          description: City or cities of publication.
+        start_year:
+          type: string
+          description: First year of publication.
+          example: '1849'
+        end_year:
+          type: string
+          description: Last year of publication (or "present" if ongoing).
+          example: '1920'
     IssuesListResponse:
       type: object
       description: List of all issues for a newspaper title.

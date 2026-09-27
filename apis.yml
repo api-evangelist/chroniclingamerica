@@ -51,7 +51,6 @@ apis:
   name: Chronicling America Batches API
   description: Endpoints for retrieving digitization batch information.
   humanURL: https://chroniclingamerica.loc.gov/about/api/
-  baseURL: https://chroniclingamerica.loc.gov
   tags:
   - Batches
   properties:
@@ -67,7 +66,6 @@ apis:
   name: Chronicling America Issues API
   description: Endpoints for retrieving newspaper issue metadata.
   humanURL: https://chroniclingamerica.loc.gov/about/api/
-  baseURL: https://chroniclingamerica.loc.gov
   tags:
   - Issues
   properties:
@@ -83,7 +81,6 @@ apis:
   name: Chronicling America OCR API
   description: Endpoints for retrieving OCR text from digitized newspaper pages.
   humanURL: https://chroniclingamerica.loc.gov/about/api/
-  baseURL: https://chroniclingamerica.loc.gov
   tags:
   - OCR
   properties:
@@ -99,7 +96,6 @@ apis:
   name: Chronicling America Pages API
   description: Endpoints for retrieving individual newspaper page metadata and content.
   humanURL: https://chroniclingamerica.loc.gov/about/api/
-  baseURL: https://chroniclingamerica.loc.gov
   tags:
   - Pages
   properties:
@@ -115,7 +111,6 @@ apis:
   name: Chronicling America Search API
   description: Full-text search endpoints for newspaper pages and titles.
   humanURL: https://chroniclingamerica.loc.gov/about/api/
-  baseURL: https://chroniclingamerica.loc.gov
   tags:
   - Search
   properties:
@@ -131,7 +126,6 @@ apis:
   name: Chronicling America Titles API
   description: Endpoints for retrieving newspaper title bibliographic metadata.
   humanURL: https://chroniclingamerica.loc.gov/about/api/
-  baseURL: https://chroniclingamerica.loc.gov
   tags:
   - Titles
   properties:
