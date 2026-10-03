@@ -111,17 +111,6 @@ paths:
           description: Page not found
 components:
   schemas:
-    IssueSummary:
-      type: object
-      description: Summary of a single newspaper issue.
-      properties:
-        url:
-          type: string
-          description: URL to the issue JSON record.
-        date_issued:
-          type: string
-          description: Date the issue was published (YYYY-MM-DD).
-          example: '1900-01-01'
     TitleSummary:
       type: object
       description: Summary record for a newspaper title.
@@ -203,6 +192,17 @@ components:
         ocr_eng:
           type: string
           description: URL to the word coordinate XML for English OCR.
+    IssueSummary:
+      type: object
+      description: Summary of a single newspaper issue.
+      properties:
+        url:
+          type: string
+          description: URL to the issue JSON record.
+        date_issued:
+          type: string
+          description: Date the issue was published (YYYY-MM-DD).
+          example: '1900-01-01'
 externalDocs:
   description: Chronicling America API Documentation
   url: https://chroniclingamerica.loc.gov/about/api/
