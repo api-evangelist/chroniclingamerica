@@ -82,6 +82,71 @@ paths:
           description: Issue not found
 components:
   schemas:
+    IssueDetail:
+      type: object
+      description: Detailed metadata for a newspaper issue.
+      properties:
+        url:
+          type: string
+          description: URL to this issue record.
+        date_issued:
+          type: string
+          description: Date the issue was published (YYYY-MM-DD).
+          example: '1900-01-01'
+        volume:
+          type: string
+          description: Volume number.
+        number:
+          type: string
+          description: Issue number within the volume.
+        edition:
+          type: integer
+          description: Edition number.
+          example: 1
+        edition_label:
+          type: string
+          description: Human-readable edition label.
+        batch:
+          type: string
+          description: Digitization batch name.
+        title:
+          $ref: '#/components/schemas/TitleSummary'
+        pages:
+          type: array
+          description: List of pages in this issue.
+          items:
+            $ref: '#/components/schemas/PageSummary'
+    PageSummary:
+      type: object
+      description: Summary of a single newspaper page within an issue.
+      properties:
+        url:
+          type: string
+          description: URL to the page JSON record.
+        sequence:
+          type: integer
+          description: Page sequence number (1-based).
+          example: 1
+        pdf:
+          type: string
+          description: URL to the PDF version of the page.
+        jp2:
+          type: string
+          description: URL to the JP2 image version of the page.
+        ocr:
+          type: string
+          description: URL to the plain text OCR of the page.
+    IssueSummary:
+      type: object
+      description: Summary of a single newspaper issue.
+      properties:
+        url:
+          type: string
+          description: URL to the issue JSON record.
+        date_issued:
+          type: string
+          description: Date the issue was published (YYYY-MM-DD).
+          example: '1900-01-01'
     TitleSummary:
       type: object
       description: Summary record for a newspaper title.
@@ -121,37 +186,6 @@ components:
           type: string
           description: Last year of publication (or "present" if ongoing).
           example: '1920'
-    IssueSummary:
-      type: object
-      description: Summary of a single newspaper issue.
-      properties:
-        url:
-          type: string
-          description: URL to the issue JSON record.
-        date_issued:
-          type: string
-          description: Date the issue was published (YYYY-MM-DD).
-          example: '1900-01-01'
-    PageSummary:
-      type: object
-      description: Summary of a single newspaper page within an issue.
-      properties:
-        url:
-          type: string
-          description: URL to the page JSON record.
-        sequence:
-          type: integer
-          description: Page sequence number (1-based).
-          example: 1
-        pdf:
-          type: string
-          description: URL to the PDF version of the page.
-        jp2:
-          type: string
-          description: URL to the JP2 image version of the page.
-        ocr:
-          type: string
-          description: URL to the plain text OCR of the page.
     IssuesListResponse:
       type: object
       description: List of all issues for a newspaper title.
@@ -161,40 +195,6 @@ components:
           description: Array of issue records.
           items:
             $ref: '#/components/schemas/IssueSummary'
-    IssueDetail:
-      type: object
-      description: Detailed metadata for a newspaper issue.
-      properties:
-        url:
-          type: string
-          description: URL to this issue record.
-        date_issued:
-          type: string
-          description: Date the issue was published (YYYY-MM-DD).
-          example: '1900-01-01'
-        volume:
-          type: string
-          description: Volume number.
-        number:
-          type: string
-          description: Issue number within the volume.
-        edition:
-          type: integer
-          description: Edition number.
-          example: 1
-        edition_label:
-          type: string
-          description: Human-readable edition label.
-        batch:
-          type: string
-          description: Digitization batch name.
-        title:
-          $ref: '#/components/schemas/TitleSummary'
-        pages:
-          type: array
-          description: List of pages in this issue.
-          items:
-            $ref: '#/components/schemas/PageSummary'
 externalDocs:
   description: Chronicling America API Documentation
   url: https://chroniclingamerica.loc.gov/about/api/

@@ -312,31 +312,6 @@ components:
           type: string
           description: Last year of publication (or "present" if ongoing).
           example: '1920'
-    SearchPagesResponse:
-      type: object
-      description: Paginated search results for newspaper pages.
-      properties:
-        totalItems:
-          type: integer
-          description: Total number of matching pages across all pages of results.
-          example: 42317
-        endIndex:
-          type: integer
-          description: Index of the last result on the current page.
-          example: 20
-        startIndex:
-          type: integer
-          description: Index of the first result on the current page.
-          example: 1
-        itemsPerPage:
-          type: integer
-          description: Number of results per page.
-          example: 20
-        items:
-          type: array
-          description: Array of matching newspaper page records.
-          items:
-            $ref: '#/components/schemas/PageSearchResult'
     PageSearchResult:
       type: object
       description: A single newspaper page result from a search query.
@@ -486,6 +461,31 @@ components:
           description: Array of matching newspaper title records.
           items:
             $ref: '#/components/schemas/TitleSummary'
+    SearchPagesResponse:
+      type: object
+      description: Paginated search results for newspaper pages.
+      properties:
+        totalItems:
+          type: integer
+          description: Total number of matching pages across all pages of results.
+          example: 42317
+        endIndex:
+          type: integer
+          description: Index of the last result on the current page.
+          example: 20
+        startIndex:
+          type: integer
+          description: Index of the first result on the current page.
+          example: 1
+        itemsPerPage:
+          type: integer
+          description: Number of results per page.
+          example: 20
+        items:
+          type: array
+          description: Array of matching newspaper page records.
+          items:
+            $ref: '#/components/schemas/PageSearchResult'
 externalDocs:
   description: Chronicling America API Documentation
   url: https://chroniclingamerica.loc.gov/about/api/

@@ -111,45 +111,17 @@ paths:
           description: Page not found
 components:
   schemas:
-    TitleSummary:
+    IssueSummary:
       type: object
-      description: Summary record for a newspaper title.
+      description: Summary of a single newspaper issue.
       properties:
-        lccn:
-          type: string
-          description: Library of Congress Control Number.
-          example: sn84026749
-        title:
-          type: string
-          description: Name of the newspaper.
-          example: Chicago Tribune
         url:
           type: string
-          description: URL to the full title JSON record.
-          example: https://chroniclingamerica.loc.gov/lccn/sn84026749.json
-        state:
-          type: array
-          items:
-            type: string
-          description: State(s) where the newspaper was published.
-        county:
-          type: array
-          items:
-            type: string
-          description: County or counties of publication.
-        city:
-          type: array
-          items:
-            type: string
-          description: City or cities of publication.
-        start_year:
+          description: URL to the issue JSON record.
+        date_issued:
           type: string
-          description: First year of publication.
-          example: '1849'
-        end_year:
-          type: string
-          description: Last year of publication (or "present" if ongoing).
-          example: '1920'
+          description: Date the issue was published (YYYY-MM-DD).
+          example: '1900-01-01'
     PageDetail:
       type: object
       description: Detailed metadata for a single newspaper page.
@@ -192,17 +164,45 @@ components:
         ocr_eng:
           type: string
           description: URL to the word coordinate XML for English OCR.
-    IssueSummary:
+    TitleSummary:
       type: object
-      description: Summary of a single newspaper issue.
+      description: Summary record for a newspaper title.
       properties:
+        lccn:
+          type: string
+          description: Library of Congress Control Number.
+          example: sn84026749
+        title:
+          type: string
+          description: Name of the newspaper.
+          example: Chicago Tribune
         url:
           type: string
-          description: URL to the issue JSON record.
-        date_issued:
+          description: URL to the full title JSON record.
+          example: https://chroniclingamerica.loc.gov/lccn/sn84026749.json
+        state:
+          type: array
+          items:
+            type: string
+          description: State(s) where the newspaper was published.
+        county:
+          type: array
+          items:
+            type: string
+          description: County or counties of publication.
+        city:
+          type: array
+          items:
+            type: string
+          description: City or cities of publication.
+        start_year:
           type: string
-          description: Date the issue was published (YYYY-MM-DD).
-          example: '1900-01-01'
+          description: First year of publication.
+          example: '1849'
+        end_year:
+          type: string
+          description: Last year of publication (or "present" if ongoing).
+          example: '1920'
 externalDocs:
   description: Chronicling America API Documentation
   url: https://chroniclingamerica.loc.gov/about/api/
