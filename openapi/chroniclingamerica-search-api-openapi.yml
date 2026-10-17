@@ -273,45 +273,27 @@ paths:
                 $ref: '#/components/schemas/SearchTitlesResponse'
 components:
   schemas:
-    TitleSummary:
+    SearchTitlesResponse:
       type: object
-      description: Summary record for a newspaper title.
+      description: Paginated search results for newspaper titles.
       properties:
-        lccn:
-          type: string
-          description: Library of Congress Control Number.
-          example: sn84026749
-        title:
-          type: string
-          description: Name of the newspaper.
-          example: Chicago Tribune
-        url:
-          type: string
-          description: URL to the full title JSON record.
-          example: https://chroniclingamerica.loc.gov/lccn/sn84026749.json
-        state:
+        totalItems:
+          type: integer
+          description: Total number of matching titles.
+        endIndex:
+          type: integer
+          description: Index of the last result on the current page.
+        startIndex:
+          type: integer
+          description: Index of the first result on the current page.
+        itemsPerPage:
+          type: integer
+          description: Number of results per page.
+        items:
           type: array
+          description: Array of matching newspaper title records.
           items:
-            type: string
-          description: State(s) where the newspaper was published.
-        county:
-          type: array
-          items:
-            type: string
-          description: County or counties of publication.
-        city:
-          type: array
-          items:
-            type: string
-          description: City or cities of publication.
-        start_year:
-          type: string
-          description: First year of publication.
-          example: '1849'
-        end_year:
-          type: string
-          description: Last year of publication (or "present" if ongoing).
-          example: '1920'
+            $ref: '#/components/schemas/TitleSummary'
     PageSearchResult:
       type: object
       description: A single newspaper page result from a search query.
@@ -440,27 +422,45 @@ components:
         page:
           type: string
           description: Page label or number within the issue.
-    SearchTitlesResponse:
+    TitleSummary:
       type: object
-      description: Paginated search results for newspaper titles.
+      description: Summary record for a newspaper title.
       properties:
-        totalItems:
-          type: integer
-          description: Total number of matching titles.
-        endIndex:
-          type: integer
-          description: Index of the last result on the current page.
-        startIndex:
-          type: integer
-          description: Index of the first result on the current page.
-        itemsPerPage:
-          type: integer
-          description: Number of results per page.
-        items:
+        lccn:
+          type: string
+          description: Library of Congress Control Number.
+          example: sn84026749
+        title:
+          type: string
+          description: Name of the newspaper.
+          example: Chicago Tribune
+        url:
+          type: string
+          description: URL to the full title JSON record.
+          example: https://chroniclingamerica.loc.gov/lccn/sn84026749.json
+        state:
           type: array
-          description: Array of matching newspaper title records.
           items:
-            $ref: '#/components/schemas/TitleSummary'
+            type: string
+          description: State(s) where the newspaper was published.
+        county:
+          type: array
+          items:
+            type: string
+          description: County or counties of publication.
+        city:
+          type: array
+          items:
+            type: string
+          description: City or cities of publication.
+        start_year:
+          type: string
+          description: First year of publication.
+          example: '1849'
+        end_year:
+          type: string
+          description: Last year of publication (or "present" if ongoing).
+          example: '1920'
     SearchPagesResponse:
       type: object
       description: Paginated search results for newspaper pages.

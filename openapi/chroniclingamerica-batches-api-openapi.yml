@@ -57,6 +57,31 @@ paths:
           description: Batch not found
 components:
   schemas:
+    BatchDetail:
+      type: object
+      description: Detailed metadata for a digitization batch.
+      properties:
+        name:
+          type: string
+          description: Name of the batch.
+          example: batch_dlc_jamaica_ver01
+        url:
+          type: string
+          description: URL to this batch record.
+        awardee:
+          $ref: '#/components/schemas/Awardee'
+        ingested:
+          type: string
+          description: Date and time the batch was ingested (ISO 8601).
+          example: '2007-04-10T00:00:00+00:00'
+        page_count:
+          type: integer
+          description: Total number of pages in this batch.
+        lccns:
+          type: array
+          description: List of LCCNs (newspaper titles) included in this batch.
+          items:
+            type: string
     Awardee:
       type: object
       description: Institution awarded the NDNP grant that contributed this batch.
@@ -88,31 +113,6 @@ components:
         page_count:
           type: integer
           description: Number of pages in this batch.
-    BatchDetail:
-      type: object
-      description: Detailed metadata for a digitization batch.
-      properties:
-        name:
-          type: string
-          description: Name of the batch.
-          example: batch_dlc_jamaica_ver01
-        url:
-          type: string
-          description: URL to this batch record.
-        awardee:
-          $ref: '#/components/schemas/Awardee'
-        ingested:
-          type: string
-          description: Date and time the batch was ingested (ISO 8601).
-          example: '2007-04-10T00:00:00+00:00'
-        page_count:
-          type: integer
-          description: Total number of pages in this batch.
-        lccns:
-          type: array
-          description: List of LCCNs (newspaper titles) included in this batch.
-          items:
-            type: string
     BatchesListResponse:
       type: object
       description: List of all digitization batches.
