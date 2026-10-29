@@ -64,36 +64,133 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Chronicling America is a Library of Congress initiative providing free public access to a searchable database of historic American newspaper pages from 1770 to 1963. The platform hosts over 20 million digitized newspaper pages from hundreds of US newspapers contributed by institutions in the National Digital Newspaper Program (NDNP). The API requires no authentication and returns responses in JSON and Atom feed formats.
+Chronicling America is a Library of Congress initiative providing free public access to a searchable database of historic American newspaper pages from 1770 to 1963. The platform hosts over 20 million digitized newspaper pages from hundreds of US newspapers contributed by institutions in the National Digital Newspaper Program (NDNP). The API exposes search, title, issue, batch, and OCR text endpoints with no authentication required, returning responses in JSON and Atom feed formats.
 
-**Provider:** Library of Congress  
-**Base URL:** https://chroniclingamerica.loc.gov  
-**Authentication:** None required  
-**Cost:** Free  
+**Areas:** Newspapers · Historical · Archives · Library of Congress · Government · Digitized · OCR · Search · Cultural Heritage
 
-## APIs
+## Chronicling America on APIs.io
 
-| API | Description |
-|-----|-------------|
-| Search API | Full-text search across 20M+ historic newspaper pages by keyword, date, state, and title |
-| Titles API | Bibliographic metadata for newspaper titles by LCCN, including issue and batch listings |
-| Pages API | Individual page records with OCR text, IIIF image URLs, PDF, JP2, and TIFF downloads |
+Everything profiled for Chronicling America is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/chroniclingamerica/](https://apis.io/providers/chroniclingamerica/)** — or go straight to one of the APIs or properties below.
 
-## Key Endpoints
+### APIs (6)
 
-- `GET /search/pages/results/?andtext={query}&format=json` — Full-text page search
-- `GET /newspapers.json` — All newspaper titles in the collection
-- `GET /lccn/{lccn}.json` — Metadata for a specific newspaper title
-- `GET /lccn/{lccn}/issues.json` — All issues for a newspaper title
-- `GET /lccn/{lccn}/{date}/ed-{edition}/seq-{sequence}.json` — Individual page record
-- `GET /lccn/{lccn}/{date}/ed-{edition}/seq-{sequence}/ocr.txt` — OCR text for a page
-- `GET /batches.json` — All ingestion batches in the collection
-- `GET /batches/{batch_name}.json` — Pages in a specific batch
+- [Chronicling America Batches API](https://apis.io/apis/chroniclingamerica/chroniclingamerica-batches-api/) — Endpoints for retrieving digitization batch information.
+- [Chronicling America Issues API](https://apis.io/apis/chroniclingamerica/chroniclingamerica-issues-api/) — Endpoints for retrieving newspaper issue metadata.
+- [Chronicling America OCR API](https://apis.io/apis/chroniclingamerica/chroniclingamerica-ocr-api/) — Endpoints for retrieving OCR text from digitized newspaper pages.
+- [Chronicling America Pages API](https://apis.io/apis/chroniclingamerica/chroniclingamerica-pages-api/) — Endpoints for retrieving individual newspaper page metadata and content.
+- [Chronicling America Search API](https://apis.io/apis/chroniclingamerica/chroniclingamerica-search-api/) — Full-text search endpoints for newspaper pages and titles.
+- [Chronicling America Titles API](https://apis.io/apis/chroniclingamerica/chroniclingamerica-titles-api/) — Endpoints for retrieving newspaper title bibliographic metadata.
 
-## Resources
+### Published properties
 
-- [API Documentation](https://chroniclingamerica.loc.gov/about/api/)
-- [Collection Overview](https://chroniclingamerica.loc.gov/about/)
-- [LOC Labs Bulk Data](https://labs.loc.gov/work/experiments/bulk-data/)
-- [National Digital Newspaper Program](https://www.loc.gov/ndnp/)
-- [Library of Congress Legal](https://www.loc.gov/legal/)
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### Agentic access (1)
+
+Which operations an agent can call, which act, and which need a human in the loop.
+
+- [Chroniclingamerica Agentic Access](https://apis.io/agentic-access/chroniclingamerica/chroniclingamerica-agentic-access/)
+
+#### JSON-LD (1)
+
+Linked-data contexts for the provider's vocabulary.
+
+- [Chroniclingamerica Context](https://apis.io/jsonld/chroniclingamerica/chroniclingamerica/)
+
+#### Collections (6)
+
+Postman and Open Collection request collections.
+
+- [Chronicling America Batches API](https://apis.io/collections/chroniclingamerica/open-chroniclingamerica-batches-api/)
+- [Chronicling America Batches Issues API](https://apis.io/collections/chroniclingamerica/open-chroniclingamerica-issues-api/)
+- [Chronicling America Batches OCR API](https://apis.io/collections/chroniclingamerica/open-chroniclingamerica-ocr-api/)
+- [Chronicling America Batches Pages API](https://apis.io/collections/chroniclingamerica/open-chroniclingamerica-pages-api/)
+- [Chronicling America Batches Search API](https://apis.io/collections/chroniclingamerica/open-chroniclingamerica-search-api/)
+- [Chronicling America Batches Titles API](https://apis.io/collections/chroniclingamerica/open-chroniclingamerica-titles-api/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Chroniclingamerica Domain Security](https://apis.io/security/chroniclingamerica/chroniclingamerica-domain-security/)
+- [Chroniclingamerica Vulnerability Disclosure](https://apis.io/security/chroniclingamerica/chroniclingamerica-vulnerability-disclosure/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Chroniclingamerica Plans Pricing](https://apis.io/plans/chroniclingamerica/chroniclingamerica-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Chroniclingamerica Rate Limits](https://apis.io/rate-limits/chroniclingamerica/chroniclingamerica-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Chroniclingamerica Finops](https://apis.io/finops/chroniclingamerica/chroniclingamerica-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://chroniclingamerica.loc.gov)
+- [Documentation](https://chroniclingamerica.loc.gov/about/api/)
+- [Terms of service](https://www.loc.gov/legal/)
+- [Privacy policy](https://www.loc.gov/legal/privacy-policy/)
+
+## API Evangelist rating
+
+**Kin Score 29.1** — thin · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 57.1 |
+| Contract quality | 51.2 |
+| Contract governance | 0.0 |
+| Operational transparency | 13.2 |
+| Developer ergonomics | 9.5 |
+| Access clarity | 26.3 |
+
+**Agent readiness 23.6** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | na |
+| MCP Server | — |
+| Auth Clarity | — |
+| Idempotency | na |
+| Error Semantics | — |
+| OpenAPI Examples | verified |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | na |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 24.5** — Government & Public Sector
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/chroniclingamerica/](https://apis.io/providers/chroniclingamerica/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Chronicling America: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/chroniclingamerica/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
